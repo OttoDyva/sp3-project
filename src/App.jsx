@@ -1,8 +1,9 @@
+import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
 import AuthorList from "./components/AuthorList";
 import Header from "./components/Header";
-import apiFacade from "./util/apiFacade";
+import BarsList from "./components/BarsList";
 
 function App() {
   const [authors, setAuthors] = useState([]);
@@ -26,8 +27,12 @@ function App() {
 
   return (
     <>
+      <h1>Hello</h1>
       <Header />
-      <AuthorList authors={authors} />
+      <Routes>
+        <Route path="/" element={<AuthorList authors={authors} />} />
+        <Route path="/BarsList" element={<BarsList />} />
+      </Routes>
     </>
   );
 }
