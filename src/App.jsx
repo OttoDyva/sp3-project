@@ -1,38 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import AuthorList from "./components/AuthorList";
+import Header from "./components/Header";
+import apiFacade from "./util/apiFacade";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [authors, setAuthors] = useState([]);
+
+  // Fetch authors
+  const fetchAuthors = async () => {
+    try {
+      const response = await fetch(
+        "https://hotel.sejestedomain.dk/api/authors"
+      );
+      const data = await response.json();
+      setAuthors(data);
+    } catch (error) {
+      console.error("Error fetching bars:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAuthors();
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Bekhan update</h1>
-      <h1>Otto er bedre end Bekhan</h1>
-      <h1>Nej han er ej</h1>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Header />
+      <AuthorList authors={authors} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
