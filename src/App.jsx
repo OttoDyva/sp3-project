@@ -12,8 +12,8 @@ function App() {
     <>
       <Navbar />
       <div className="box">
-        <div><h2>BARS</h2></div>
         <Header />
+        <div><h4>Search</h4></div>
       <Routes>
         <Route path="/AuthorsList" element={<AuthorList />} />
         <Route path="/BarsList" element={<BarsList />} />
