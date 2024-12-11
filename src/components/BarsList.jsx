@@ -26,16 +26,22 @@ const BarsList = ({ onSelectBar, selectedGenre }) => {
     }
   }, [bars, selectedGenre]);
 
+  const deleteBarById = async (barId) => {
+    try {
+      await facade.deleteData(`/api/bars/${barId}`);
+      setBars(bars.filter((bar) => bar.id !== barId));
+    } catch (error) {
+      console.error("Error deleting bar:", error);
+    }
+  };
+  
+
   return (
     <div style={{ flex: 1, overflowY: "auto" }}>
       <h2>Bars</h2>
       <ul>
         {filteredBars.map((bar) => (
-          <li
-            key={bar.id}
-            onClick={() => onSelectBar(bar.id)}
-            style={{ cursor: "pointer" }}
-          >
+          <li key={bar.id} style={{ cursor: "pointer" }}>
             <h3>{bar.title}</h3>
             <p>
               Content: {bar.content} <br />
@@ -43,10 +49,11 @@ const BarsList = ({ onSelectBar, selectedGenre }) => {
               Author: {bar.authorName} <br />
               Description: {bar.authorDescription} <br />
             </p>
+            <button onClick={() => deleteBarById(bar.id)}>Delete</button>
           </li>
         ))}
       </ul>
-      <BarsForm setBars={setBars}/>
+      <BarsForm setBars={setBars} />
     </div>
   );
 };

@@ -20,7 +20,7 @@ const GenreFilter = ({ onSelectGenre }) => {
 
   return (
     <div>
-      <label htmlFor="genre">Filter by Genre: </label>
+      <label htmlFor="genre">Genre filter: </label>
       <select
         id="genre"
         onChange={(e) => onSelectGenre(e.target.value)}
