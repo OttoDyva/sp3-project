@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
 
-const GenreFilter = ({ onSelectCategory }) => {
+const GenreFilter = ({ onSelectGenre }) => {
   const [genres, setGenres] = useState([]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const GenreFilter = ({ onSelectCategory }) => {
       <label htmlFor="genre">Filter by Genre: </label>
       <select
         id="genre"
-        onChange={(e) => onSelectCategory(e.target.value)}
+        onChange={(e) => onSelectGenre(e.target.value)}
       >
         <option value="">All</option>
         {genres.map((genre) => (

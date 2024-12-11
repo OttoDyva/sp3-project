@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import AuthorList from "./components/AuthorList";
 import Header from "./components/Header";
 import BarsList from "./components/BarsList";
@@ -14,11 +13,11 @@ function App() {
     <>
       <Navbar />
       <div className="box">
-        <h2>BARS</h2>
-        <Header />
+        <Header onSelectGenre={setSelectedGenre}/>
       <Routes>
         <Route path="/AuthorsList" element={<AuthorList />} />
         <Route path="/BarsList" element={<BarsList selectedGenre={selectedGenre} />} />
+
       </Routes>
       </div>
     </>
