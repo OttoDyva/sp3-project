@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
+import '../css/Author.css'
 
 const AuthorList = ({ onSelectAuthor }) => {
   const [authors, setAuthors] = useState([]);
@@ -13,22 +14,20 @@ const AuthorList = ({ onSelectAuthor }) => {
   }, []);
 
   return (
-    <div style={{ flex: 1, overflowY: "auto" }}>
-      <h2>Authors</h2>
-      <ul>
+    <div className="author-list-container">
+      <h2 className="author-list-header">Authors</h2>
+      <div className="author-list-grid">
         {authors.map((author) => (
-          <li
+          <div
             key={author.id}
             onClick={() => onSelectAuthor(author.id)}
-            style={{ cursor: "pointer" }}
+            className="author-card"
           >
-            <h3>{author.name}</h3>
-            <p>
-              Description: {author.description} <br />
-            </p>
-          </li>
+            <h3 className="author-name">{author.name}</h3>
+            <p className="author-description">{author.description}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

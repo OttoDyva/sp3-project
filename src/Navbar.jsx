@@ -15,6 +15,7 @@ const Navbar = () => {
     <form className="App">
         <input type="Username" />
         <input type="Password" />
+        <button>LOGIN</button>   
     </form>
   </div>
 </nav>
