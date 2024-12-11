@@ -9,6 +9,7 @@ import Navbar from './Navbar';
 
 // CSS
 import './App.css'
+import BarsForm from "./components/BarsForm";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState("");
@@ -18,13 +19,21 @@ function App() {
       <Navbar />
       <div className="box">
         <Header />
-        <div><h4>Search</h4></div>
+        <div>
+          <h4>Search</h4>
+        </div>
         <Routes>
           <Route path="/AuthorsList" element={<AuthorList />} />
-          <Route 
-            path="/BarsList" 
-            element={<BarsList selectedGenre={selectedGenre} onSelectGenre={setSelectedGenre} />} 
+          <Route
+            path="/BarsList"
+            element={
+              <BarsList
+                selectedGenre={selectedGenre}
+                onSelectGenre={setSelectedGenre}
+              />
+            }
           />
+          <Route path="/BarsForm" element={<BarsForm />} />
         </Routes>
       </div>
     </>

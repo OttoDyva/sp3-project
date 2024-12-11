@@ -57,7 +57,6 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
           </li>
         ))}
       </ul>
-      <BarsForm setBars={setBars} />
     </div>
   );
 };

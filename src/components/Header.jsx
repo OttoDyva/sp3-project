@@ -14,7 +14,7 @@ function Header() {
             <Link to="/AuthorsList">AUTHORS</Link>
           </li>
           <li>
-            <Link to="/">CREATE</Link>
+            <Link to="/BarsForm">CREATE</Link>
           </li>
         </ul>
       </nav>
