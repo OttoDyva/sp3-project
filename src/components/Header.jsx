@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import GenreFilter from "./GenreFilter";
 import '../css/Head.css'
 
-function Header() {
+function Header({ onSelectGenre }) {
   return (
     <header>
       <nav className="header-design">
@@ -18,6 +19,7 @@ function Header() {
           </li>
         </ul>
       </nav>
+      <GenreFilter onSelectGenre={onSelectGenre} />
     </header>
   );
 }
