@@ -54,6 +54,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
               Description: {bar.authorDescription} <br />
             </p>
             <button onClick={() => deleteBarById(bar.id)}>Delete</button>
+            
           </li>
         ))}
       </ul>
