@@ -1,8 +1,8 @@
 import { useState } from "react";
 import logo from "./assets/logo.png";
 import "./Navbar.css";
-import LogIn from "./components/Login";
-import LoggedIn from "./components/LoggedIn";
+import LogIn from "./LogIn";
+import LoggedIn from "./LoggedIn";
 import facade from "./util/apiFacade";
 
 const Navbar = () => {

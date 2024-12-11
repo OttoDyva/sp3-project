@@ -5,7 +5,7 @@ import { useState } from "react";
 import AuthorList from "./components/AuthorList";
 import Header from "./components/Header";
 import BarsList from "./components/BarsList";
-import Navbar from './Navbar';
+import Navbar from './components/Navbar';
 
 // CSS
 import './App.css'
