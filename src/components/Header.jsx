@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import facade from "../util/apiFacade";
-import BarsList from "./BarsList";
 
 function Header() {
   return (
@@ -11,10 +9,14 @@ function Header() {
           <li>
             <Link to="/BarsList">BarsList</Link>
           </li>
-           
+          <li>
+            <Link to="/AuthorsList">AuthorsList</Link>
+          </li>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
         </ul>
       </nav>
-
     </header>
   );
 }

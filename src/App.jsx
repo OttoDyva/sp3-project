@@ -1,24 +1,26 @@
-import { useState } from 'react'
+import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import AuthorList from "./components/AuthorList";
+import Header from "./components/Header";
+import BarsList from "./components/BarsList";
 import Navbar from './Navbar';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <Navbar />
       <div className="box">
-        <h2>Authors</h2>
-      </div>
-
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <h2>BARS</h2>
+        <Header />
+      <Routes>
+        <Route path="/AuthorsList" element={<AuthorList />} />
+        <Route path="/BarsList" element={<BarsList />} />
+      </Routes>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
