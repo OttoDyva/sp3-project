@@ -1,9 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
+
+// Components
 import AuthorList from "./components/AuthorList";
 import Header from "./components/Header";
 import BarsList from "./components/BarsList";
 import Navbar from './Navbar';
+
+// CSS
 import './App.css'
 
 function App() {
