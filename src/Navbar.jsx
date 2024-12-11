@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logo from "./assets/logo.png";
 import "./Navbar.css";
-import LogIn from "./components/Login";
+import LogIn from "../components/Login";
 import LoggedIn from "./components/LoggedIn";
 import facade from "./util/apiFacade";
 
