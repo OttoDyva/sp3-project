@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
+import BarsForm from "./BarsForm";
 
 const BarsList = ({ onSelectBar }) => {
   const [bars, setBars] = useState([]);
 
   useEffect(() => {
     const fetchBars = async () => {
-      const bars = await facade.fetchData("/api/bars");
-      setBars(bars);
+      try {
+        const bars = await facade.fetchData("/api/bars");
+        setBars(Array.isArray(bars) ? bars : []); // Ensure bars is always an array
+      } catch (error) {
+        console.error("Error fetching bars:", error);
+      }
     };
     fetchBars();
   }, []);
@@ -32,6 +37,7 @@ const BarsList = ({ onSelectBar }) => {
           </li>
         ))}
       </ul>
+      <BarsForm setBars={setBars}/>
     </div>
   );
 };

@@ -44,9 +44,11 @@ function apiFacade() {
 
   const fetchData = async (endpoint) => {
     const options = makeOptions("GET", true);
-    return await fetch(`${BASE_URL}${endpoint}`, options).then(handleHttpErrors); // Concatenate endpoint correctly
+    return await fetch(`${BASE_URL}${endpoint}`, options).then(
+      handleHttpErrors
+    ); // Concatenate endpoint correctly
   };
-  
+
   const makeOptions = (method, addToken, body) => {
     const opts = {
       method: method,
@@ -64,6 +66,21 @@ function apiFacade() {
     return opts;
   };
 
+  const postData = async (endpoint, data) => {
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to post data");
+    }
+    return await response.json();
+  };
+
   return {
     makeOptions,
     getUserRoles,
@@ -72,6 +89,7 @@ function apiFacade() {
     loggedIn,
     fetchData,
     hasUserAccess,
+    postData,
   };
 }
 
