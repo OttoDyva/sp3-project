@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
+import GenreFilter from "./GenreFilter";
 import BarsForm from "./BarsForm";
 
-const BarsList = ({ onSelectBar, selectedGenre }) => {
+const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);
   const [filteredBars, setFilteredBars] = useState([]);
 
@@ -10,7 +11,7 @@ const BarsList = ({ onSelectBar, selectedGenre }) => {
     const fetchBars = async () => {
       try {
         const bars = await facade.fetchData("/api/bars");
-        setBars(Array.isArray(bars) ? bars : []); // Ensure bars is always an array
+        setBars(Array.isArray(bars) ? bars : []); 
       } catch (error) {
         console.error("Error fetching bars:", error);
       }
@@ -39,6 +40,9 @@ const BarsList = ({ onSelectBar, selectedGenre }) => {
   return (
     <div style={{ flex: 1, overflowY: "auto" }}>
       <h2>Bars</h2>
+    
+      <GenreFilter onSelectGenre={onSelectGenre} />
+
       <ul>
         {filteredBars.map((bar) => (
           <li key={bar.id} style={{ cursor: "pointer" }}>

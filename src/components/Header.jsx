@@ -1,24 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import GenreFilter from "./GenreFilter";
+import '../css/Head.css'
 
-function Header({ onSelectGenre }) {
+function Header() {
   return (
     <header>
-      <nav>
+      <nav className="header-design">
         <ul>
           <li>
-            <Link to="/BarsList">BarsList</Link>
+            <Link to="/BarsList">BARS</Link>
           </li>
           <li>
-            <Link to="/AuthorsList">AuthorsList</Link>
+            <Link to="/AuthorsList">AUTHORS</Link>
           </li>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">CREATE</Link>
           </li>
         </ul>
       </nav>
-      <GenreFilter onSelectGenre={onSelectGenre} />
     </header>
   );
 }
