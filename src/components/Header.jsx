@@ -8,7 +8,6 @@ function Header() {
       <nav className="header-design">
         <ul>
           <li>
-            <h1>Test</h1>
             <Link to="/BarsList">BARS</Link>
           </li>
           <li>
