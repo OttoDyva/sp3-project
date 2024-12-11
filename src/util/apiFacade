@@ -1,4 +1,4 @@
-const BASE_URL = "https://hotel.sejestedomain.dk"; // Base URL without /api/trips
+const BASE_URL = "https://hotel.sejestedomain.dk";
 
 function handleHttpErrors(res) {
   if (!res.ok) {

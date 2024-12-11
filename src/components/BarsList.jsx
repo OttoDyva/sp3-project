@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
 
-const BarsList = ({ onSelectBar }) => {
+const BarsList = ({ onSelectBar, selectedGenre }) => {
   const [bars, setBars] = useState([]);
+  const [filteredBars, setFilteredBars] = useState([]);
 
   useEffect(() => {
     const fetchBars = async () => {
@@ -12,11 +13,19 @@ const BarsList = ({ onSelectBar }) => {
     fetchBars();
   }, []);
 
+  useEffect(() => {
+    if (selectedGenre) {
+      setFilteredBars(bars.filter((bar) => bar.genre === selectedGenre));
+    } else {
+      setFilteredBars(bars);
+    }
+  }, [bars, selectedGenre]);
+
   return (
     <div style={{ flex: 1, overflowY: "auto" }}>
       <h2>Bars</h2>
       <ul>
-        {bars.map((bar) => (
+        {filteredBars.map((bar) => (
           <li
             key={bar.id}
             onClick={() => onSelectBar(bar.id)}
