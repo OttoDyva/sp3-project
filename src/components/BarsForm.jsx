@@ -30,9 +30,6 @@ const BarsForm = ({ setBars }) => {
     <>
       <form onSubmit={handleSubmit}>
         <h2>Add Bar</h2>
-        <br />
-        <label htmlFor="id">ID</label>
-        <input name="id" id="id" type="text" placeholder="id" />
         <label htmlFor="title">Title</label>
         <input name="title" id="title" type="text" placeholder="title" />
         <br />
