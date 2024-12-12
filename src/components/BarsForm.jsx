@@ -129,6 +129,9 @@ const BarsForm = ({ setBars }) => {
           <option value="POEM">POEM</option>
           <option value="MOTIVATIONAL">MOTIVATIONAL</option>
           <option value="HUMOR">HUMOR</option>
+          <option value="SONG">SONG</option>
+          <option value="SPEECH">SPEECH</option>
+          <option value="STUPID">STUPID</option>
         </select>
         <br />
         <label htmlFor="authorName">Author Name</label>
