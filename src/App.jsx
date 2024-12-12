@@ -5,10 +5,12 @@ import { useState } from "react";
 import AuthorList from "./components/AuthorList";
 import Header from "./components/Header";
 import BarsList from "./components/BarsList";
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar";
+import UserList from "./components/UserList";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 // CSS
-import './App.css'
+import "./App.css";
 import BarsForm from "./components/BarsForm";
 import UserForm from "./components/UserForm";
 
@@ -36,8 +38,16 @@ function App() {
               />
             }
           />
-          <Route path="/BarsForm" element={<BarsForm setBars={setBars}/>} />
+          <Route path="/BarsForm" element={<BarsForm setBars={setBars} />} />
           <Route path="/UserForm" element={<UserForm setUser={setUsers} />} />
+          <Route
+            path="/UserList"
+            element={
+              <ProtectedRoute role="admin">
+                <UserList users={users} />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </>
