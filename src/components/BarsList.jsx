@@ -9,6 +9,10 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [editFormData, setEditFormData] = useState({});
 
   useEffect(() => {
+
+    // Tilbage til gamle genre, når man skifter side
+    onSelectGenre("");
+
     const fetchBars = async () => {
       try {
         const bars = await facade.fetchData("/api/bars");

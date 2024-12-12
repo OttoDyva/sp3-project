@@ -82,7 +82,7 @@ const BarsForm = ({ setBars }) => {
   };
 
   const handleContentChange = (evt) => {
-    setCharCount(evt.target.value.length); 
+    setCharCount(evt.target.value.length);
   };
 
   return (
@@ -145,7 +145,7 @@ const BarsForm = ({ setBars }) => {
           name="authorDescription"
           id="authorDescription"
           type="text"
-          placeholder="Write a word which describes what the aurthor does"
+          placeholder="Write a word which describes what the author does"
           required
         />
         <br />
