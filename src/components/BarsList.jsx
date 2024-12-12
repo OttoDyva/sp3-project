@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
 import GenreFilter from "./GenreFilter";
 
-const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
+const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);
   const [filteredBars, setFilteredBars] = useState([]);
-  const [editingBar, setEditingBar] = useState(null); 
-  const [editFormData, setEditFormData] = useState({}); 
+  const [editingBar, setEditingBar] = useState(null);
+  const [editFormData, setEditFormData] = useState({});
 
   useEffect(() => {
     const fetchBars = async () => {
@@ -39,7 +39,10 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
 
   const editBarById = async (barId) => {
     try {
-      const editedBar = await facade.editData(`/api/bars/${barId}`, editFormData);
+      const editedBar = await facade.editData(
+        `/api/bars/${barId}`,
+        editFormData
+      );
       setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar)));
       setEditingBar(null);
     } catch (error) {
@@ -59,7 +62,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
 
   const handleCancelEdit = () => {
     setEditingBar(null);
-    setEditFormData({}); 
+    setEditFormData({});
   };
 
   return (
@@ -94,6 +97,17 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
                   onChange={handleInputChange}
                   placeholder="Genre"
                 />
+                <input
+                  type="date"
+                  name="date"
+                  value={
+                    editFormData.date
+                      ? editFormData.date.split("-").slice(0, 3).join("-")
+                      : ""
+                  }
+                  onChange={handleInputChange}
+                  placeholder="Date"
+                />
                 <button onClick={() => editBarById(bar.id)}>Save</button>
                 <button onClick={handleCancelEdit}>Cancel</button>
               </div>
@@ -103,11 +117,12 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
                 <p>
                   Content: {bar.content} <br />
                   Genre: {bar.genre} <br />
+                  Date: {bar.date.join("-")} <br /> {/* Formatting the date */}
                   Author: {bar.authorName} <br />
                   Description: {bar.authorDescription} <br />
                 </p>
-                    <button onClick={() => deleteBarById(bar.id)}>Delete</button>
-                    <button onClick={() => handleEditClick(bar)}>Edit</button>
+                <button onClick={() => deleteBarById(bar.id)}>Delete</button>
+                <button onClick={() => handleEditClick(bar)}>Edit</button>
               </div>
             )}
           </li>

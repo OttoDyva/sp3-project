@@ -82,7 +82,7 @@ const BarsForm = ({ setBars }) => {
   };
 
   const handleContentChange = (evt) => {
-    setCharCount(evt.target.value.length); // Update char count on content change
+    setCharCount(evt.target.value.length); 
   };
 
   return (
