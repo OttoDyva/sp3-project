@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../css/LoginStyle.css";
 import { Link } from "react-router-dom";
 import facade from "../util/apiFacade";
@@ -6,11 +6,23 @@ import facade from "../util/apiFacade";
 function LogIn({ login }) {
   const init = { username: "", password: "" };
   const [loginCredentials, setLoginCredentials] = useState(init);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const performLogin = (evt) => {
+  const performLogin = async (evt) => {
     evt.preventDefault();
-    login(loginCredentials.username, loginCredentials.password);
+    try {
+      await login(loginCredentials.username, loginCredentials.password);
+      setErrorMessage("");
+    } catch (error) {
+      console.error("Login failed:", error);
+      setErrorMessage("Wrong username or password");
+
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
+    }
   };
+
   const onChange = (evt) => {
     setLoginCredentials({
       ...loginCredentials,
@@ -20,7 +32,7 @@ function LogIn({ login }) {
 
   return (
     <div className="loginStyle">
-      <h2>Login </h2>
+      <h2>Login</h2>
       <form onSubmit={performLogin}>
         <input
           placeholder="Username"
@@ -29,11 +41,13 @@ function LogIn({ login }) {
           value={loginCredentials.username}
         />
         <input
+          type="password"
           placeholder="Password"
           id="password"
           onChange={onChange}
           value={loginCredentials.password}
         />
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <div className="button-and-link">
           <button type="submit">Login</button>
           <div className="account-options">

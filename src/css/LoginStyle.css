@@ -5,6 +5,14 @@
     flex-wrap: wrap;
 }
 
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
 
 .loginStyle input {
     background-color: #D6D9D9;
