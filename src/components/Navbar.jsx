@@ -4,15 +4,17 @@ import "../css/NavbarStyle.css";
 import LogIn from "./LogIn";
 import LoggedIn from "./LoggedIn";
 import facade from "../util/apiFacade";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
 
   const logout = () => {
     facade.logout();
     setLoggedIn(false);
-    setUsername("");
+    navigate("/");
   };
 
   const login = (user, pass) => {
@@ -43,6 +45,24 @@ const Navbar = () => {
               <button onClick={logout}>Logout</button>
             </div>
           )}
+        </div>
+        <div>
+          <ul>
+          <li>
+                <Link to="/UserForm">Create User</Link>
+              </li>
+          </ul>
+        <ul>
+          {facade.loggedIn() && (
+            <>
+              {facade.hasUserAccess("admin") && (
+                <li>
+                  <Link to="/UserList">Admin</Link>
+                </li>
+              )}
+            </>
+          )}
+        </ul>
         </div>
       </div>
     </nav>

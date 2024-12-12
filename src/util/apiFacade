@@ -134,9 +134,6 @@ function apiFacade() {
     return await response.json();
   };
   
-  
-  
-
   return {
     makeOptions,
     getUserRoles,
