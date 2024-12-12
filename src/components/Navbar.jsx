@@ -4,18 +4,22 @@ import "../css/NavbarStyle.css";
 import LogIn from "./LogIn";
 import LoggedIn from "./LoggedIn";
 import facade from "../util/apiFacade";
-import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
 
   const logout = () => {
     facade.logout();
     setLoggedIn(false);
+    setUsername("");
   };
 
   const login = (user, pass) => {
-    facade.login(user, pass).then(() => setLoggedIn(true));
+    facade.login(user, pass).then(() => {
+      setLoggedIn(true);
+      setUsername(user);
+    });
     console.log(user, pass);
   };
 
@@ -31,19 +35,14 @@ const Navbar = () => {
           {!loggedIn ? (
             <LogIn login={login} />
           ) : (
-            <div>
+            <div className="user-info">
               <LoggedIn />
+              <span className="username">
+              Welcome <span className="usernamecolor">{username}</span>!
+              </span>
               <button onClick={logout}>Logout</button>
             </div>
           )}
-        </div>
-        <div>
-          <ul>
-            <li>
-              <p>Dont have an account yet?</p>
-              <Link to="/UserForm">Create User</Link>
-            </li>
-          </ul>
         </div>
       </div>
     </nav>

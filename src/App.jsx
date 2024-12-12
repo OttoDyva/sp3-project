@@ -22,9 +22,6 @@ function App() {
       <Navbar />
       <div className="box">
         <Header />
-        <div>
-          <h4>Search</h4>
-        </div>
         <Routes>
           <Route path="/AuthorsList" element={<AuthorList />} />
           <Route

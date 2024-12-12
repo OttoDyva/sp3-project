@@ -44,7 +44,7 @@
     flex-direction: column;
   }
 
-  .navbar-right .App input {
+  .navbar-right .login {
     background-color: #D6D9D9;
     color: black;
     padding: 5%;
@@ -55,7 +55,7 @@
     outline-color: #E5D588;
   }
 
-  .navbar-right .App button {
+  .navbar-right .user-info button {
     background-color: #E5D588;
     color: black;
     outline-color: black;
@@ -74,6 +74,21 @@
     filter: drop-shadow(0 0 1em #E5D588);
   }
     
+  .user-info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1em; /* Space between username and button */
+    margin-right: 2em;
+  }
+  
+  .username {
+    font-size: 2em; /* Adjust font size for the username */
+    font-weight: bold;
+  }
 
+  .usernamecolor {
+    color: #E5D588;
+  }
 
 

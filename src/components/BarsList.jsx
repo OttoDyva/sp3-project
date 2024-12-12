@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
 import GenreFilter from "./GenreFilter";
 
-const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
+const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
   const [bars, setBars] = useState([]);
   const [filteredBars, setFilteredBars] = useState([]);
   const [editingBar, setEditingBar] = useState(null); // Track the bar being edited
@@ -106,8 +106,8 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
                   Author: {bar.authorName} <br />
                   Description: {bar.authorDescription} <br />
                 </p>
-                <button onClick={() => deleteBarById(bar.id)}>Delete</button>
-                <button onClick={() => handleEditClick(bar)}>Edit</button>
+                    <button onClick={() => deleteBarById(bar.id)}>Delete</button>
+                    <button onClick={() => handleEditClick(bar)}>Edit</button>
               </div>
             )}
           </li>

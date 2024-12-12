@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import "../css/LoginStyle.css";
+import { Link } from "react-router-dom";
 import facade from "../util/apiFacade";
 
 function LogIn({ login }) {
@@ -17,11 +19,11 @@ function LogIn({ login }) {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="loginStyle">
+      <h2>Login </h2>
       <form onSubmit={performLogin}>
         <input
-          placeholder="User Name"
+          placeholder="Username"
           id="username"
           onChange={onChange}
           value={loginCredentials.username}
@@ -32,7 +34,13 @@ function LogIn({ login }) {
           onChange={onChange}
           value={loginCredentials.password}
         />
-        <button type="submit">Login</button>
+        <div className="button-and-link">
+          <button type="submit">Login</button>
+          <div className="account-options">
+            <p>Don't have an account yet?</p>
+            <Link to="/UserForm">Create User</Link>
+          </div>
+        </div>
       </form>
     </div>
   );
