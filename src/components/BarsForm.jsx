@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import facade from "../util/apiFacade";
 
 const BarsForm = ({ setBars }) => {
+  const [successMessage, setSuccessMessage] = useState("");
+  const formRef = useRef(null);
+
   useEffect(() => {
     const fetchBars = async () => {
       try {
         const bars = await facade.fetchData("/api/bars");
-        if (setBars) setBars(bars); // Only call setBars if it's defined
+        if (setBars) setBars(bars);
       } catch (error) {
         console.error("Error fetching bars:", error);
       }
@@ -21,10 +24,9 @@ const BarsForm = ({ setBars }) => {
     const obj = Object.fromEntries(form.entries());
     delete obj.id;
 
-    obj.authorName = obj.authorName.trim(); // Normalize author name
+    obj.authorName = obj.authorName.trim();
 
     try {
-      // Fetch existing authors
       const authors = await facade.fetchData("/api/authors");
       const existingAuthor = authors.find(
         (author) =>
@@ -37,41 +39,47 @@ const BarsForm = ({ setBars }) => {
         );
 
         if (!confirmAdd) {
-          return; // Stop further processing if the user cancels
+          return;
         }
 
-        // Use the existing author's exact name and description
-        obj.authorName = existingAuthor.name; // Ensure exact matching
-        obj.authorDescription = existingAuthor.description; // Use existing description
+        obj.authorName = existingAuthor.name;
+        obj.authorDescription = existingAuthor.description;
       }
 
-      console.log("Payload being sent to API:", obj); // Debugging
       const createdBar = await facade.postData("/api/bars", obj);
 
-      // Update bars state
       setBars((prevBars) => [...prevBars, createdBar]);
 
-      // Fetch authors again to check for empty duplicates
+      setSuccessMessage("Bar created successfully!");
+
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+
       const updatedAuthors = await facade.fetchData("/api/authors");
-      const emptyAuthors = updatedAuthors.filter(
+      const duplicateAuthors = updatedAuthors.filter(
         (author) =>
           author.name.trim().toLowerCase() === obj.authorName.toLowerCase() &&
           author.bars.length === 0
       );
 
-      // Delete all empty duplicate authors
-      for (const emptyAuthor of emptyAuthors) {
-        console.log(`Deleting empty author with ID: ${emptyAuthor.id}`);
-        await facade.deleteData(`/api/authors/${emptyAuthor.id}`);
+      for (const duplicateAuthor of duplicateAuthors) {
+        console.log(`Deleting duplicate author with ID: ${duplicateAuthor.id}`);
+        await facade.deleteData(`/api/authors/${duplicateAuthor.id}`);
       }
+
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 3000);
     } catch (error) {
       console.error("Error submitting the form:", error);
+      setSuccessMessage("");
     }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={formRef}>
         <h2>Add Bar</h2>
         <label htmlFor="title">Title</label>
         <input
@@ -131,6 +139,9 @@ const BarsForm = ({ setBars }) => {
         <br />
         <button type="submit">Save Bar</button>
       </form>
+      {successMessage && (
+        <p className="success-message fade-in">{successMessage}</p>
+      )}
     </div>
   );
 };

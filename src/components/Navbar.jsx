@@ -15,12 +15,15 @@ const Navbar = () => {
     setUsername("");
   };
 
-  const login = (user, pass) => {
-    facade.login(user, pass).then(() => {
+  const login = async (user, pass) => {
+    try {
+      await facade.login(user, pass);
       setLoggedIn(true);
       setUsername(user);
-    });
-    console.log(user, pass);
+    } catch (error) {
+      console.error("Login failed:", error);
+      throw error;
+    }
   };
 
   return (
@@ -38,7 +41,7 @@ const Navbar = () => {
             <div className="user-info">
               <LoggedIn />
               <span className="username">
-              Welcome <span className="usernamecolor">{username}</span>!
+                Welcome <span className="usernamecolor">{username}</span>!
               </span>
               <button onClick={logout}>Logout</button>
             </div>
