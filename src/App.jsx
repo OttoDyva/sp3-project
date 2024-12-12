@@ -6,16 +6,17 @@ import AuthorList from "./components/AuthorList";
 import Header from "./components/Header";
 import BarsList from "./components/BarsList";
 import Navbar from './components/Navbar';
+import BarsForm from "./components/BarsForm";
 
 // CSS
 import './App.css'
-import BarsForm from "./components/BarsForm";
 import UserForm from "./components/UserForm";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const [users, setUsers] = useState([]);
   const [bars, setBars] = useState([]);
+
 
   return (
     <>
@@ -30,6 +31,7 @@ function App() {
               <BarsList
                 selectedGenre={selectedGenre}
                 onSelectGenre={setSelectedGenre}
+                bars={bars} 
               />
             }
           />
