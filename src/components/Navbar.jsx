@@ -1,9 +1,9 @@
 import { useState } from "react";
-import logo from "./assets/logo.png";
-import "./Navbar.css";
+import logo from "../assets/logo.png";
+import "../css/NavbarStyle.css";
 import LogIn from "./LogIn";
 import LoggedIn from "./LoggedIn";
-import facade from "./util/apiFacade";
+import facade from "../util/apiFacade";
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(false);

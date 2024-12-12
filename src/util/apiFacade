@@ -99,6 +99,23 @@ function apiFacade() {
     const text = await response.text();
     return text ? JSON.parse(text) : {};
   };
+
+  const editData = async (endpoint, data) => {
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to edit data");
+    }
+    return await response.json();
+  };
+  
   
   
 
@@ -111,7 +128,8 @@ function apiFacade() {
     fetchData,
     hasUserAccess,
     postData,
-    deleteData
+    deleteData,
+    editData
   };
 }
 
