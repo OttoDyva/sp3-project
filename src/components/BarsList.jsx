@@ -5,8 +5,8 @@ import GenreFilter from "./GenreFilter";
 const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);
   const [filteredBars, setFilteredBars] = useState([]);
-  const [editingBar, setEditingBar] = useState(null); // Track the bar being edited
-  const [editFormData, setEditFormData] = useState({}); // Store the edited data
+  const [editingBar, setEditingBar] = useState(null); 
+  const [editFormData, setEditFormData] = useState({}); 
 
   useEffect(() => {
     const fetchBars = async () => {
@@ -41,15 +41,15 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
     try {
       const editedBar = await facade.editData(`/api/bars/${barId}`, editFormData);
       setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar)));
-      setEditingBar(null); // Exit edit mode after successful update
+      setEditingBar(null);
     } catch (error) {
       console.error("Error editing bar:", error);
     }
   };
 
   const handleEditClick = (bar) => {
-    setEditingBar(bar.id); // Enter edit mode for the selected bar
-    setEditFormData({ ...bar }); // Populate the form with the bar's current data
+    setEditingBar(bar.id);
+    setEditFormData({ ...bar });
   };
 
   const handleInputChange = (e) => {
@@ -58,8 +58,8 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   };
 
   const handleCancelEdit = () => {
-    setEditingBar(null); // Exit edit mode
-    setEditFormData({}); // Clear form data
+    setEditingBar(null);
+    setEditFormData({}); 
   };
 
   return (
