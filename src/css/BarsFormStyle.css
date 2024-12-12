@@ -1,0 +1,73 @@
+.formstyle {
+    max-width: 80%;
+    min-width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #2c2c2c;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h4 {
+    margin: 0;
+}
+
+h2 {
+    color: #E5D588;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+}
+
+input:focus,
+select:focus {
+  border-color: #E5D588;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 251, 0, 0.5);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 5px 0;
+    color: white;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  textarea:focus {
+    border-color: #E5D588; /* Change border color when focused */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 5px rgba(229, 213, 136, 0.5); /* Optional: add a soft glow effect */
+  }
+
+  .char-count {
+    font-size: 14px;
+    color: #e5d588;
+    margin-top: 0;
+  }
+
+  .formstyle button {
+    margin-top: 10px;
+  }
