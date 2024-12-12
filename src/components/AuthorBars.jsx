@@ -4,14 +4,14 @@ import facade from "../util/apiFacade";
 import "../css/AuthorBars.css";
 
 const AuthorBars = () => {
-  const { authorId } = useParams(); // Get the author ID from the URL
-  const [author, setAuthor] = useState(null); // Stores author details
+  const { authorId } = useParams(); 
+  const [author, setAuthor] = useState(null); 
 
   useEffect(() => {
     const fetchAuthor = async () => {
       try {
         const authorData = await facade.fetchData(`/api/authors/${authorId}`);
-        setAuthor(authorData); // Set the fetched author data
+        setAuthor(authorData); 
       } catch (error) {
         console.error("Error fetching author:", error);
       }

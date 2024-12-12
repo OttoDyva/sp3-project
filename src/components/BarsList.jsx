@@ -122,7 +122,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
                 <input
                   type="date"
                   name="date"
-                  value={editFormData.date || ""} // Use safe fallback for date
+                  value={editFormData.date || ""}
                   onChange={handleInputChange}
                   placeholder="Date"
                 />

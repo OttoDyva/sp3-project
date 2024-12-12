@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // Components
 import AuthorList from "./components/AuthorList";
-import AuthorBars from "./components/AuthorBars"; // Import AuthorBars component
+import AuthorBars from "./components/AuthorBars"; 
 import Header from "./components/Header";
 import BarsList from "./components/BarsList";
 import Navbar from "./components/Navbar";
@@ -12,7 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import BarsForm from "./components/BarsForm";
 import UserForm from "./components/UserForm";
 
-// CSS
+// Home page CSS
 import './App.css'
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/AuthorsList" element={<AuthorList />} />
-          <Route path="/authors/:authorId" element={<AuthorBars />} /> {/* New Route */}
+          <Route path="/authors/:authorId" element={<AuthorBars />} /> {}
           <Route
             path="/BarsList"
             element={

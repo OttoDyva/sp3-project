@@ -31,9 +31,9 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <a href="/" className="logo">
+        <Link to="/" className="logo">
           <img src={logo} className="logo react" alt="React logo" />
-        </a>
+        </Link>
       </div>
       <div className="navbar-right">
         <div>
