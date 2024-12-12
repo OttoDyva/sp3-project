@@ -10,9 +10,12 @@ import Navbar from './components/Navbar';
 // CSS
 import './App.css'
 import BarsForm from "./components/BarsForm";
+import UserForm from "./components/UserForm";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState("");
+  const [users, setUsers] = useState([]);
+  const [bars, setBars] = useState([]);
 
   return (
     <>
@@ -33,7 +36,8 @@ function App() {
               />
             }
           />
-          <Route path="/BarsForm" element={<BarsForm />} />
+          <Route path="/BarsForm" element={<BarsForm setBars={setBars}/>} />
+          <Route path="/UserForm" element={<UserForm setUser={setUsers} />} />
         </Routes>
       </div>
     </>

@@ -19,8 +19,8 @@ const BarsForm = ({ setBars }) => {
     console.log(obj);
 
     try {
-      const createdBar = await facade.postData("/api/bars", obj); // Adjust endpoint as needed
-      setBars((prevBars) => [...prevBars, createdBar]); // Append the new bar to the list
+      const createdBar = await facade.postData("/api/bars", obj);
+      setBars((prevBars) => [...prevBars, createdBar]);
     } catch (error) {
       console.error("Error submitting the form:", error);
     }

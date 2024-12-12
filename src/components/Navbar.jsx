@@ -4,6 +4,7 @@ import "../css/NavbarStyle.css";
 import LogIn from "./LogIn";
 import LoggedIn from "./LoggedIn";
 import facade from "../util/apiFacade";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -26,16 +27,24 @@ const Navbar = () => {
         </a>
       </div>
       <div className="navbar-right">
-          <div>
-            {!loggedIn ? (
-              <LogIn login={login} />
-            ) : (
-              <div>
-                <LoggedIn />
-                <button onClick={logout}>Logout</button>
-              </div>
-            )}
-          </div>
+        <div>
+          {!loggedIn ? (
+            <LogIn login={login} />
+          ) : (
+            <div>
+              <LoggedIn />
+              <button onClick={logout}>Logout</button>
+            </div>
+          )}
+        </div>
+        <div>
+          <ul>
+            <li>
+              <p>Dont have an account yet?</p>
+              <Link to="/UserForm">Create User</Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );
