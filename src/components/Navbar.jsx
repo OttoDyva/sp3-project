@@ -50,11 +50,6 @@ const Navbar = () => {
           )}
         </div>
         <div>
-          <ul>
-          <li>
-                <Link to="/UserForm">Create User</Link>
-              </li>
-          </ul>
         <ul>
           {facade.loggedIn() && (
             <>
