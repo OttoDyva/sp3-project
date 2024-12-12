@@ -1,7 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
+import "../css/BarsFormStyle.css";
 
 const BarsForm = ({ setBars }) => {
+  const [charCount, setCharCount] = useState(0);
+  const maxCharCount = 255;
+
   useEffect(() => {
     const fetchBars = async () => {
       try {
@@ -69,27 +73,35 @@ const BarsForm = ({ setBars }) => {
     }
   };
 
+  const handleContentChange = (evt) => {
+    setCharCount(evt.target.value.length); // Update char count on content change
+  };
+
   return (
-    <div>
+    <div className="formstyle">
       <form onSubmit={handleSubmit}>
-        <h2>Add Bar</h2>
+        <h2>Create a new bar</h2>
         <label htmlFor="title">Title</label>
         <input
           name="title"
           id="title"
           type="text"
-          placeholder="title"
+          placeholder="Give your bar a title"
           required
         />
         <br />
         <label htmlFor="content">Content</label>
-        <input
+        <textarea
           name="content"
           id="content"
-          type="text"
-          placeholder="content"
+          placeholder="Write your content here"
           required
-        />
+          maxLength={maxCharCount} // Set the maxLength to 255 characters
+          onChange={handleContentChange} // Handle change to update character count
+        ></textarea>
+        <div className="char-count">
+          {maxCharCount - charCount} characters left
+        </div>
         <br />
         <label htmlFor="date">Date</label>
         <input
@@ -116,7 +128,7 @@ const BarsForm = ({ setBars }) => {
           name="authorName"
           id="authorName"
           type="text"
-          placeholder="authorName"
+          placeholder="Name the author here"
           required
         />
         <br />
@@ -125,11 +137,11 @@ const BarsForm = ({ setBars }) => {
           name="authorDescription"
           id="authorDescription"
           type="text"
-          placeholder="authorDescription"
+          placeholder="Write a word which describes what the aurthor does"
           required
         />
         <br />
-        <button type="submit">Save Bar</button>
+        <button type="submit">Create Bar</button>
       </form>
     </div>
   );
