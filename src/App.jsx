@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // Components
 import AuthorList from "./components/AuthorList";
+import AuthorBars from "./components/AuthorBars"; // Import AuthorBars component
 import Header from "./components/Header";
 import BarsList from "./components/BarsList";
 import Navbar from "./components/Navbar";
@@ -19,7 +20,6 @@ function App() {
   const [users, setUsers] = useState([]);
   const [bars, setBars] = useState([]);
 
-
   return (
     <>
       <Navbar />
@@ -27,13 +27,14 @@ function App() {
         <Header />
         <Routes>
           <Route path="/AuthorsList" element={<AuthorList />} />
+          <Route path="/authors/:authorId" element={<AuthorBars />} /> {/* New Route */}
           <Route
             path="/BarsList"
             element={
               <BarsList
                 selectedGenre={selectedGenre}
                 onSelectGenre={setSelectedGenre}
-                bars={bars} 
+                bars={bars}
               />
             }
           />
