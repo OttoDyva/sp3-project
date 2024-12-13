@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
 import GenreFilter from "./GenreFilter";
+import "../css/BarsListStyle.css";
 
 const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);
@@ -73,7 +74,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
       <ul>
         {filteredBars.map((bar) => (
-          <li key={bar.id} style={{ cursor: "pointer" }}>
+          <li className="listDesign" key={bar.id} style={{ cursor: "pointer" }}>
             {editingBar === bar.id ? (
               <div>
                 <input
@@ -112,14 +113,16 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
                 <button onClick={handleCancelEdit}>Cancel</button>
               </div>
             ) : (
-              <div>
+              <div className="barsListDesign">
                 <h3>{bar.title}</h3>
                 <p>
-                  Content: {bar.content} <br />
-                  Genre: {bar.genre} <br />
-                  Date: {bar.date.join("-")} <br /> {/* Formatting the date */}
-                  Author: {bar.authorName} <br />
-                  Description: {bar.authorDescription} <br />
+                  <div className="barsList-author">By {bar.authorName}  -  {bar.date.join("-")} </div>
+                  <div className="barsList-description">Description: {bar.authorDescription}</div>
+                  <br />
+                  
+                  <div className="quote">{bar.content}</div> <br />
+
+                  <div className="genre">Genre: {bar.genre}</div> <br />
                 </p>
                 <button onClick={() => deleteBarById(bar.id)}>Delete</button>
                 <button onClick={() => handleEditClick(bar)}>Edit</button>
