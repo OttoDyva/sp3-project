@@ -6,11 +6,14 @@ import SearchBar from "./SearchBar";
 const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);
   const [filteredBars, setFilteredBars] = useState([]);
-  const [searchedBar, setSearchedBars] = useState([]);
   const [editingBar, setEditingBar] = useState(null);
   const [editFormData, setEditFormData] = useState({});
+  const [genres, setGenres] = useState([]); // Stores permissible genres
+  const [searchedBar, setSearchedBars] = useState([]);
 
   useEffect(() => {
+    onSelectGenre(""); // Reset genre filter when component is mounted
+
     const fetchBars = async () => {
       try {
         const bars = await facade.fetchData("/api/bars");
@@ -20,6 +23,19 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       }
     };
     fetchBars();
+  }, []); // No dependencies, runs on mount
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const bars = await facade.fetchData("/api/bars");
+        const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
+        setGenres(uniqueGenres); // Extract unique genres from bars
+      } catch (error) {
+        console.error("Error fetching genres:", error);
+      }
+    };
+    fetchGenres();
   }, []);
 
   useEffect(() => {
@@ -62,7 +78,10 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
   const handleEditClick = (bar) => {
     setEditingBar(bar.id);
-    setEditFormData({ ...bar });
+    setEditFormData({
+      ...bar,
+      date: Array.isArray(bar.date) ? bar.date.join("-") : bar.date || "", // Ensure date is formatted correctly
+    });
   };
 
   const handleInputChange = (e) => {
@@ -101,12 +120,25 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
                   onChange={handleInputChange}
                   placeholder="Content"
                 />
-                <input
-                  type="text"
+                <select
                   name="genre"
                   value={editFormData.genre || ""}
                   onChange={handleInputChange}
                   placeholder="Genre"
+                >
+                  <option value="">Select Genre</option>
+                  {genres.map((genre) => (
+                    <option key={genre} value={genre}>
+                      {genre}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="date"
+                  name="date"
+                  value={editFormData.date || ""}
+                  onChange={handleInputChange}
+                  placeholder="Date"
                 />
                 <button onClick={() => editBarById(bar.id)}>Save</button>
                 <button onClick={handleCancelEdit}>Cancel</button>
@@ -117,6 +149,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
                 <p>
                   Content: {bar.content} <br />
                   Genre: {bar.genre} <br />
+                  Date: {bar.date.join("-")} <br />
                   Author: {bar.authorName} <br />
                   Description: {bar.authorDescription} <br />
                 </p>

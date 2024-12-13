@@ -23,6 +23,15 @@ function apiFacade() {
     } else return "";
   };
 
+  const getBarsByAuthor = async (authorId) => {
+    const options = makeOptions("GET", true);
+    return await fetch(`${BASE_URL}/api/authors/${authorId}`, options)
+      .then(handleHttpErrors)
+      .then((author) => author.bars); // Return only the bars from the response
+  };
+    
+
+
   const hasUserAccess = (neededRole) => {
     const roles = getUserRoles().split(",");
     return roles.includes(neededRole);

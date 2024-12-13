@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // Components
 import AuthorList from "./components/AuthorList";
+import AuthorBars from "./components/AuthorBars"; 
 import Header from "./components/Header";
 import BarsList from "./components/BarsList";
 import Navbar from "./components/Navbar";
@@ -11,14 +12,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import BarsForm from "./components/BarsForm";
 import UserForm from "./components/UserForm";
 
-// CSS
+// Home page CSS
 import './App.css'
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const [users, setUsers] = useState([]);
   const [bars, setBars] = useState([]);
-
 
   return (
     <>
@@ -27,13 +27,14 @@ function App() {
         <Header />
         <Routes>
           <Route path="/AuthorsList" element={<AuthorList />} />
+          <Route path="/authors/:authorId" element={<AuthorBars />} /> {}
           <Route
             path="/BarsList"
             element={
               <BarsList
                 selectedGenre={selectedGenre}
                 onSelectGenre={setSelectedGenre}
-                bars={bars} 
+                bars={bars}
               />
             }
           />

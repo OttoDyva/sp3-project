@@ -25,7 +25,7 @@ const GenreFilter = ({ onSelectGenre }) => {
         id="genre"
         onChange={(e) => onSelectGenre(e.target.value)}
       >
-        <option value="">All</option>
+        <option value="">ALL</option>
         {genres.map((genre) => (
           <option key={genre} value={genre}>
             {genre}

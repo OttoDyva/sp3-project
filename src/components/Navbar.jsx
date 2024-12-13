@@ -31,9 +31,9 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <a href="/" className="logo">
+        <Link to="/" className="logo">
           <img src={logo} className="logo react" alt="React logo" />
-        </a>
+        </Link>
       </div>
       <div className="navbar-right">
         <div>
@@ -50,17 +50,17 @@ const Navbar = () => {
           )}
         </div>
         <div>
-          <ul>
-            {facade.loggedIn() && (
-              <>
-                {facade.hasUserAccess("admin") && (
-                  <li>
-                    <Link to="/UserList">Admin</Link>
-                  </li>
-                )}
-              </>
-            )}
-          </ul>
+        <ul>
+          {facade.loggedIn() && (
+            <>
+              {facade.hasUserAccess("admin") && (
+                <li>
+                  <Link to="/UserList">Admin</Link>
+                </li>
+              )}
+            </>
+          )}
+        </ul>
         </div>
       </div>
     </nav>

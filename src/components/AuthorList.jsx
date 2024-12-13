@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import facade from "../util/apiFacade";
 import "../css/Author.css";
 
-const AuthorList = ({ onSelectAuthor }) => {
+const AuthorList = () => {
   const [authors, setAuthors] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAuthors = async () => {
@@ -25,7 +27,10 @@ const AuthorList = ({ onSelectAuthor }) => {
       console.error("Error deleting author:", error);
     }
   };
-  
+
+  const handleAuthorClick = (authorId) => {
+    navigate(`/authors/${authorId}`); // Navigate to the new page with the author's ID
+  };
 
   return (
     <div className="author-list-container">
@@ -33,7 +38,12 @@ const AuthorList = ({ onSelectAuthor }) => {
       <div className="author-list-grid">
         {authors.map((author) => (
           <div key={author.id} className="author-card">
-            <h3 className="author-name">{author.name}</h3>
+            <h3
+              className="author-name clickable"
+              onClick={() => handleAuthorClick(author.id)}
+            >
+              {author.name}
+            </h3>
             <p className="author-description">{author.description}</p>
             <button onClick={() => deleteAuthorById(author.id)}>Delete</button>
           </div>
