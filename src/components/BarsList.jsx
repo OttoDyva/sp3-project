@@ -7,10 +7,10 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [filteredBars, setFilteredBars] = useState([]);
   const [editingBar, setEditingBar] = useState(null);
   const [editFormData, setEditFormData] = useState({});
-  const [genres, setGenres] = useState([]);
+  const [genres, setGenres] = useState([]); 
 
   useEffect(() => {
-    onSelectGenre("");
+    onSelectGenre(""); 
 
     const fetchBars = async () => {
       try {
@@ -21,14 +21,14 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       }
     };
     fetchBars();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const fetchGenres = async () => {
       try {
         const bars = await facade.fetchData("/api/bars");
         const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
-        setGenres(uniqueGenres); 
+        setGenres(uniqueGenres);
       } catch (error) {
         console.error("Error fetching genres:", error);
       }
@@ -58,29 +58,19 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       const editedBar = await facade.editData(`/api/bars/${barId}`, editFormData);
       setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar)));
       setEditingBar(null);
-  
-      const authors = await facade.fetchData("/api/authors");
-      const duplicateAuthors = authors.filter(
-        (author) =>
-          author.name.trim().toLowerCase() === editFormData.authorName.trim().toLowerCase() &&
-          author.bars.length === 0
-      );
-  
-      for (const duplicateAuthor of duplicateAuthors) {
-        console.log(`Deleting duplicate author with ID: ${duplicateAuthor.id}`);
-        await facade.deleteData(`/api/authors/${duplicateAuthor.id}`);
-      }
     } catch (error) {
       console.error("Error editing bar:", error);
     }
   };
-  
 
   const handleEditClick = (bar) => {
+    const formattedDate = Array.isArray(bar.date)
+      ? `${bar.date[0]}-${String(bar.date[1]).padStart(2, "0")}-${String(bar.date[2]).padStart(2, "0")}`
+      : ""; 
     setEditingBar(bar.id);
     setEditFormData({
       ...bar,
-      date: Array.isArray(bar.date) ? bar.date.join("-") : bar.date || "", 
+      date: formattedDate, 
     });
   };
 
@@ -92,6 +82,12 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const handleCancelEdit = () => {
     setEditingBar(null);
     setEditFormData({});
+  };
+
+  const formatDate = (dateArray) => {
+    if (!Array.isArray(dateArray) || dateArray.length !== 3) return "Invalid Date";
+    const [year, month, day] = dateArray;
+    return `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`;
   };
 
   return (
@@ -148,7 +144,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
                 <p>
                   Content: {bar.content} <br />
                   Genre: {bar.genre} <br />
-                  Date: {bar.date.join("-")} <br />
+                  Date: {formatDate(bar.date)} <br /> 
                   Author: {bar.authorName} <br />
                   Description: {bar.authorDescription} <br />
                 </p>
