@@ -18,7 +18,7 @@ const UserForm = ({ setUser }) => {
       const createdUser = await facade.postUserData("/api/auth/register", obj);
       setUser((prevUser) => [...prevUser, createdUser]);
 
-      setSuccessMessage("User has been created successfully!");
+      setSuccessMessage("User has been created successfully! Redirecting to home page...");
       setErrorMessage(""); 
 
       
@@ -27,7 +27,7 @@ const UserForm = ({ setUser }) => {
       }, 3000);
     } catch (error) {
       const errorDetail = await error.fullError;
-      setErrorMessage(errorDetail?.warning || "Username already exists. Try a new one");
+      setErrorMessage(errorDetail?.warning || "Username already exists. Please choose another one.");
       setSuccessMessage("");
     }
   };
