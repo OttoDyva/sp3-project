@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
 import GenreFilter from "./GenreFilter";
+import SearchBar from "./SearchBar";
 
-const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
+const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);
   const [filteredBars, setFilteredBars] = useState([]);
-  const [editingBar, setEditingBar] = useState(null); 
-  const [editFormData, setEditFormData] = useState({}); 
+  const [searchedBar, setSearchedBars] = useState([]);
+  const [editingBar, setEditingBar] = useState(null);
+  const [editFormData, setEditFormData] = useState({});
 
   useEffect(() => {
     const fetchBars = async () => {
@@ -28,6 +30,14 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
     }
   }, [bars, selectedGenre]);
 
+  useEffect(() => {
+    if (searchedBar) {
+      setSearchedBars(bars.filter((bar) => bar === searchedBar));
+    } else {
+      searchedBar(bars);
+    }
+  }, [bars, searchedBar]);
+
   const deleteBarById = async (barId) => {
     try {
       await facade.deleteData(`/api/bars/${barId}`);
@@ -39,7 +49,10 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
 
   const editBarById = async (barId) => {
     try {
-      const editedBar = await facade.editData(`/api/bars/${barId}`, editFormData);
+      const editedBar = await facade.editData(
+        `/api/bars/${barId}`,
+        editFormData
+      );
       setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar)));
       setEditingBar(null);
     } catch (error) {
@@ -59,13 +72,14 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
 
   const handleCancelEdit = () => {
     setEditingBar(null);
-    setEditFormData({}); 
+    setEditFormData({});
   };
 
   return (
     <div style={{ flex: 1, overflowY: "auto" }}>
       <h2>Bars</h2>
-
+      
+      <SearchBar onSearchResults={setFilteredBars} />
       <GenreFilter onSelectGenre={onSelectGenre} />
 
       <ul>
@@ -106,8 +120,8 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre}) => {
                   Author: {bar.authorName} <br />
                   Description: {bar.authorDescription} <br />
                 </p>
-                    <button onClick={() => deleteBarById(bar.id)}>Delete</button>
-                    <button onClick={() => handleEditClick(bar)}>Edit</button>
+                <button onClick={() => deleteBarById(bar.id)}>Delete</button>
+                <button onClick={() => handleEditClick(bar)}>Edit</button>
               </div>
             )}
           </li>

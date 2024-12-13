@@ -60,7 +60,7 @@ const UserList = () => {
       <h2>Users</h2>
       <div>
         {users.map((user) => (
-          <div key={user.id} className="author-card">
+          <div key={user.username} className="author-card">
             <h3 className="author-name">{user.username}</h3>
             <h3 className="author-name">{user.roles}</h3>
             {editingUser === user.id ? (

@@ -51,21 +51,16 @@ const Navbar = () => {
         </div>
         <div>
           <ul>
-          <li>
-                <Link to="/UserForm">Create User</Link>
-              </li>
+            {facade.loggedIn() && (
+              <>
+                {facade.hasUserAccess("admin") && (
+                  <li>
+                    <Link to="/UserList">Admin</Link>
+                  </li>
+                )}
+              </>
+            )}
           </ul>
-        <ul>
-          {facade.loggedIn() && (
-            <>
-              {facade.hasUserAccess("admin") && (
-                <li>
-                  <Link to="/UserList">Admin</Link>
-                </li>
-              )}
-            </>
-          )}
-        </ul>
         </div>
       </div>
     </nav>
