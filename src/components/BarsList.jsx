@@ -189,7 +189,11 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
                         Delete
                       </button>
                     )}
-                    <button onClick={() => handleEditClick(bar)}>Edit</button>
+                    {facade.hasUserAccess("admin") && (
+                      <button onClick={() => handleEditClick(bar)}>
+                        Edit
+                      </button>
+                    )}
                   </>
                 )}
               </div>
