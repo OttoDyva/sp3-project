@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../css/SearchBarStyle.css";
 import facade from "../util/apiFacade";
 
 const SearchAuthor = ({ onSearchResults }) => {
@@ -39,8 +40,8 @@ const SearchAuthor = ({ onSearchResults }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="search">Search: </label>
+      <label htmlFor="search">Search: </label>
+      <form onSubmit={handleSubmit} className="search-form">
         <input
           id="search"
           type="text"
