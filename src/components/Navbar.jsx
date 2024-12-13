@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "../assets/logo.png";
 import "../css/NavbarStyle.css";
 import LogIn from "./LogIn";
@@ -7,13 +7,21 @@ import facade from "../util/apiFacade";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("loggedIn") === "true");
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(localStorage.getItem("username") || "");
+
+  useEffect(() => {
+    localStorage.setItem("loggedIn", loggedIn);
+    localStorage.setItem("username", username);
+  }, [loggedIn, username]);
 
   const logout = () => {
     facade.logout();
     setLoggedIn(false);
+    setUsername("");
+    localStorage.removeItem("loggedIn");
+    localStorage.removeItem("username");
     navigate("/");
   };
 

@@ -60,16 +60,26 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
   const editBarById = async (barId) => {
     try {
-      const editedBar = await facade.editData(
-        `/api/bars/${barId}`,
-        editFormData
-      );
+      const editedBar = await facade.editData(`/api/bars/${barId}`, editFormData);
       setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar)));
       setEditingBar(null);
+  
+      const authors = await facade.fetchData("/api/authors");
+      const duplicateAuthors = authors.filter(
+        (author) =>
+          author.name.trim().toLowerCase() === editFormData.authorName.trim().toLowerCase() &&
+          author.bars.length === 0
+      );
+  
+      for (const duplicateAuthor of duplicateAuthors) {
+        console.log(`Deleting duplicate author with ID: ${duplicateAuthor.id}`);
+        await facade.deleteData(`/api/authors/${duplicateAuthor.id}`);
+      }
     } catch (error) {
       console.error("Error editing bar:", error);
     }
   };
+  
 
   const handleEditClick = (bar) => {
     const formattedDate = Array.isArray(bar.date)
