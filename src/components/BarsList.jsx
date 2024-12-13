@@ -1,49 +1,57 @@
 import React, { useEffect, useState } from "react";
 import facade from "../util/apiFacade";
 import GenreFilter from "./GenreFilter";
+import SearchBar from "./SearchBar";
 import "../css/BarsListStyle.css";
 
 const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [filteredBars, setFilteredBars] = useState([]);
   const [editingBar, setEditingBar] = useState(null);
   const [editFormData, setEditFormData] = useState({});
-  const [genres, setGenres] = useState([]); 
+  const [genres, setGenres] = useState([]);
 
   useEffect(() => {
-    onSelectGenre(""); 
+    onSelectGenre(""); // Reset genre filter when component is mounted
 
-    const fetchBars = async () => {
+    const fetchBarsAndGenres = async () => {
       try {
+        // Fetch bars
         const bars = await facade.fetchData("/api/bars");
-        setBars(Array.isArray(bars) ? bars : []);
-      } catch (error) {
-        console.error("Error fetching bars:", error);
-      }
-    };
-    fetchBars();
-  }, []);
+        setBars(bars);
+        setFilteredBars(bars);
 
-  useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const bars = await facade.fetchData("/api/bars");
+        // Fetch unique genres
         const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
         setGenres(uniqueGenres);
       } catch (error) {
-        console.error("Error fetching genres:", error);
+        console.error("Error fetching data:", error);
       }
     };
-    fetchGenres();
-  }, []);
+
+    fetchBarsAndGenres();
+  }, [onSelectGenre]); // `onSelectGenre` as dependency to ensure it resets on component mount
 
   useEffect(() => {
-    if (selectedGenre) {
-      setFilteredBars(bars.filter((bar) => bar.genre === selectedGenre));
-    } else {
-      setFilteredBars(bars);
-    }
-  }, [bars, selectedGenre]);
+    const applyFilters = () => {
+      let filtered = bars;
+
+      if (selectedGenre) {
+        filtered = filtered.filter((bar) => bar.genre === selectedGenre);
+      }
+
+      if (searchResults.length > 0) {
+        filtered = filtered.filter((bar) =>
+          searchResults.includes(bar.id)
+        );
+      }
+
+      setFilteredBars(filtered);
+    };
+
+    applyFilters();
+  }, [bars, selectedGenre, searchResults]);
 
   const deleteBarById = async (barId) => {
     try {
@@ -56,7 +64,10 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
   const editBarById = async (barId) => {
     try {
-      const editedBar = await facade.editData(`/api/bars/${barId}`, editFormData);
+      const editedBar = await facade.editData(
+        `/api/bars/${barId}`,
+        editFormData
+      );
       setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar)));
       setEditingBar(null);
     } catch (error) {
@@ -95,6 +106,11 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
     <div style={{ flex: 1, overflowY: "auto" }}>
       <h2>Bars</h2>
 
+      <SearchBar
+        onSearchResults={(results) =>
+          setSearchResults(results.map((bar) => bar.id))
+        }
+      />
       <GenreFilter onSelectGenre={onSelectGenre} />
 
       <ul>
