@@ -7,10 +7,10 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [filteredBars, setFilteredBars] = useState([]);
   const [editingBar, setEditingBar] = useState(null);
   const [editFormData, setEditFormData] = useState({});
-  const [genres, setGenres] = useState([]); // Stores permissible genres
+  const [genres, setGenres] = useState([]);
 
   useEffect(() => {
-    onSelectGenre(""); // Reset genre filter when component is mounted
+    onSelectGenre("");
 
     const fetchBars = async () => {
       try {
@@ -21,14 +21,14 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       }
     };
     fetchBars();
-  }, []); // No dependencies, runs on mount
+  }, []); 
 
   useEffect(() => {
     const fetchGenres = async () => {
       try {
         const bars = await facade.fetchData("/api/bars");
         const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
-        setGenres(uniqueGenres); // Extract unique genres from bars
+        setGenres(uniqueGenres); 
       } catch (error) {
         console.error("Error fetching genres:", error);
       }
@@ -58,16 +58,29 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       const editedBar = await facade.editData(`/api/bars/${barId}`, editFormData);
       setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar)));
       setEditingBar(null);
+  
+      const authors = await facade.fetchData("/api/authors");
+      const duplicateAuthors = authors.filter(
+        (author) =>
+          author.name.trim().toLowerCase() === editFormData.authorName.trim().toLowerCase() &&
+          author.bars.length === 0
+      );
+  
+      for (const duplicateAuthor of duplicateAuthors) {
+        console.log(`Deleting duplicate author with ID: ${duplicateAuthor.id}`);
+        await facade.deleteData(`/api/authors/${duplicateAuthor.id}`);
+      }
     } catch (error) {
       console.error("Error editing bar:", error);
     }
   };
+  
 
   const handleEditClick = (bar) => {
     setEditingBar(bar.id);
     setEditFormData({
       ...bar,
-      date: Array.isArray(bar.date) ? bar.date.join("-") : bar.date || "", // Ensure date is formatted correctly
+      date: Array.isArray(bar.date) ? bar.date.join("-") : bar.date || "", 
     });
   };
 
