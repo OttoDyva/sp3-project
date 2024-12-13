@@ -5,54 +5,57 @@ import SearchBar from "./SearchBar";
 
 const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const [filteredBars, setFilteredBars] = useState([]);
   const [editingBar, setEditingBar] = useState(null);
   const [editFormData, setEditFormData] = useState({});
-  const [genres, setGenres] = useState([]); // Stores permissible genres
-  const [searchedBar, setSearchedBars] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   useEffect(() => {
-    onSelectGenre(""); // Reset genre filter when component is mounted
-
+    onSelectGenre("");
     const fetchBars = async () => {
       try {
         const bars = await facade.fetchData("/api/bars");
-        setBars(Array.isArray(bars) ? bars : []);
+        setBars(bars);
+        setFilteredBars(bars);
       } catch (error) {
         console.error("Error fetching bars:", error);
       }
     };
-    fetchBars();
-  }, []); // No dependencies, runs on mount
 
-  useEffect(() => {
     const fetchGenres = async () => {
       try {
         const bars = await facade.fetchData("/api/bars");
         const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
-        setGenres(uniqueGenres); // Extract unique genres from bars
+        setGenres(uniqueGenres);
       } catch (error) {
         console.error("Error fetching genres:", error);
       }
     };
+
+    fetchBars();
     fetchGenres();
   }, []);
 
   useEffect(() => {
-    if (selectedGenre) {
-      setFilteredBars(bars.filter((bar) => bar.genre === selectedGenre));
-    } else {
-      setFilteredBars(bars);
-    }
-  }, [bars, selectedGenre]);
+    const applyFilters = () => {
+      let filtered = bars;
 
-  useEffect(() => {
-    if (searchedBar) {
-      setSearchedBars(bars.filter((bar) => bar === searchedBar));
-    } else {
-      searchedBar(bars);
-    }
-  }, [bars, searchedBar]);
+      if (selectedGenre) {
+        filtered = filtered.filter((bar) => bar.genre === selectedGenre);
+      }
+
+      if (searchResults.length > 0) {
+        filtered = filtered.filter((bar) =>
+          searchResults.includes(bar.id)
+        );
+      }
+
+      setFilteredBars(filtered);
+    };
+
+    applyFilters();
+  }, [bars, selectedGenre, searchResults]);
 
   const deleteBarById = async (barId) => {
     try {
@@ -80,7 +83,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
     setEditingBar(bar.id);
     setEditFormData({
       ...bar,
-      date: Array.isArray(bar.date) ? bar.date.join("-") : bar.date || "", // Ensure date is formatted correctly
+      date: Array.isArray(bar.date) ? bar.date.join("-") : bar.date || "",
     });
   };
 
@@ -97,8 +100,12 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   return (
     <div style={{ flex: 1, overflowY: "auto" }}>
       <h2>Bars</h2>
-      
-      <SearchBar onSearchResults={setFilteredBars} />
+
+      <SearchBar
+        onSearchResults={(results) =>
+          setSearchResults(results.map((bar) => bar.id))
+        }
+      />
       <GenreFilter onSelectGenre={onSelectGenre} />
 
       <ul>
