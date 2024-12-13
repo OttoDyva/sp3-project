@@ -53,7 +53,15 @@ const AuthorList = () => {
               {author.name}
             </h3>
             <p className="author-description">{author.description}</p>
-            <button onClick={() => deleteAuthorById(author.id)}>Delete</button>
+
+            {facade.loggedIn() && (
+                  <>
+                    {facade.hasUserAccess("admin") && (
+                      <button onClick={() => deleteAuthorById(author.id)}>Delete</button>
+                    )}
+                  </>
+                )}
+
           </div>
         ))}
       </div>

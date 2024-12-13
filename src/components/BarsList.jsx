@@ -17,12 +17,10 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
     const fetchBarsAndGenres = async () => {
       try {
-        // Fetch bars
         const bars = await facade.fetchData("/api/bars");
         setBars(bars);
         setFilteredBars(bars);
 
-        // Fetch unique genres
         const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
         setGenres(uniqueGenres);
       } catch (error) {
@@ -31,7 +29,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
     };
 
     fetchBarsAndGenres();
-  }, [onSelectGenre]); // `onSelectGenre` as dependency to ensure it resets on component mount
+  }, [onSelectGenre]);
 
   useEffect(() => {
     const applyFilters = () => {
@@ -42,9 +40,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       }
 
       if (searchResults.length > 0) {
-        filtered = filtered.filter((bar) =>
-          searchResults.includes(bar.id)
-        );
+        filtered = filtered.filter((bar) => searchResults.includes(bar.id));
       }
 
       setFilteredBars(filtered);
@@ -77,12 +73,14 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
   const handleEditClick = (bar) => {
     const formattedDate = Array.isArray(bar.date)
-      ? `${bar.date[0]}-${String(bar.date[1]).padStart(2, "0")}-${String(bar.date[2]).padStart(2, "0")}`
-      : ""; 
+      ? `${bar.date[0]}-${String(bar.date[1]).padStart(2, "0")}-${String(
+          bar.date[2]
+        ).padStart(2, "0")}`
+      : "";
     setEditingBar(bar.id);
     setEditFormData({
       ...bar,
-      date: formattedDate, 
+      date: formattedDate,
     });
   };
 
@@ -97,9 +95,13 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   };
 
   const formatDate = (dateArray) => {
-    if (!Array.isArray(dateArray) || dateArray.length !== 3) return "Invalid Date";
+    if (!Array.isArray(dateArray) || dateArray.length !== 3)
+      return "Invalid Date";
     const [year, month, day] = dateArray;
-    return `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`;
+    return `${String(day).padStart(2, "0")}/${String(month).padStart(
+      2,
+      "0"
+    )}/${year}`;
   };
 
   return (
@@ -159,16 +161,27 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
               <div className="barsListDesign">
                 <h3>{bar.title}</h3>
                 <p>
-                  <div className="barsList-author">By {bar.authorName}  -  {formatDate(bar.date)} </div>
-                  <div className="barsList-description">Description: {bar.authorDescription}</div>
+                  <div className="barsList-author">
+                    By {bar.authorName} - {formatDate(bar.date)}{" "}
+                  </div>
+                  <div className="barsList-description">
+                    Description: {bar.authorDescription}
+                  </div>
                   <br />
-                  
                   <div className="quote">{bar.content}</div> <br />
-
                   <div className="genre">Genre: {bar.genre}</div> <br />
                 </p>
-                <button onClick={() => deleteBarById(bar.id)}>Delete</button>
-                <button onClick={() => handleEditClick(bar)}>Edit</button>
+
+                {facade.loggedIn() && (
+                  <>
+                    {facade.hasUserAccess("admin") && (
+                      <button onClick={() => deleteBarById(bar.id)}>
+                        Delete
+                      </button>
+                    )}
+                    <button onClick={() => handleEditClick(bar)}>Edit</button>
+                  </>
+                )}
               </div>
             )}
           </li>
