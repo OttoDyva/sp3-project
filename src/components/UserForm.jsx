@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import facade from "../util/apiFacade";
+import "../css/UserFormStyle.css";
 
 const UserForm = ({ setUser }) => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -15,35 +17,42 @@ const UserForm = ({ setUser }) => {
     try {
       const createdUser = await facade.postUserData("/api/auth/register", obj);
       setUser((prevUser) => [...prevUser, createdUser]);
-      navigate("/BarsList");
+
+      setSuccessMessage("User has been created successfully!");
+      setErrorMessage(""); 
+
+      
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (error) {
       const errorDetail = await error.fullError;
       setErrorMessage(errorDetail?.warning || "Username already exists. Try a new one");
+      setSuccessMessage("");
     }
   };
 
   return (
-    <div>
+    <div className="userFormStyle">
       <form onSubmit={handleSubmit}>
-        <h2>Add User</h2>
+        <h2>Create user</h2>
         <label htmlFor="username">Username</label>
         <input
           name="username"
           id="username"
           type="text"
-          placeholder="username"
         />
         <br />
         <label htmlFor="password">Password</label>
         <input
           name="password"
           id="password"
-          type="text"
-          placeholder="password"
+          type="password" 
         />
         <br />
         <button type="submit">Submit</button>
       </form>
+      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
     </div>
   );
