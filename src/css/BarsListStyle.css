@@ -1,0 +1,55 @@
+.listDesign {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.barsListDesign {
+    background-color: #2c2c2c;
+    padding: 20px;
+    margin-bottom: 1em;
+}
+
+.barsListDesign p {
+    margin-top: 0;
+}
+
+.barsList-description {
+    font-size: 0.7em;
+    color: #848484;
+}
+
+.barsListDesign h3 {
+    color: #E5D588;
+    font-size: 1.8em;
+    margin: 0;
+}
+
+.barsList-author {
+    margin-top: 0;
+    color: #ccc;
+}
+
+.barsListDesign .quote {
+    font-size: 1.5em;
+    color: #f9f9f9; /* Light color for contrast */
+    font-style: italic;
+    margin: 10px 0;
+    line-height: 1.6; /* Add spacing for readability */
+    max-width: 500px; /* Set a maximum width for the quote */
+    word-wrap: break-word; /* Break long words to fit within the max-width */
+    white-space: normal; /* Allow text to wrap to the next line */
+}
+
+.barsListDesign .genre {
+    display: inline-block;
+    font-size: 0.9em;
+    color: #fff;
+    background-color: #4a4a4a; 
+    padding: 5px 10px;
+    border-radius: 20px; 
+    margin: 5px 0;
+}
+
+.barsListDesign button {
+    margin-right: 10px;
+}
