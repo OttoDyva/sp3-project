@@ -42,9 +42,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       }
 
       if (searchResults.length > 0) {
-        filtered = filtered.filter((bar) =>
-          searchResults.includes(bar.id)
-        );
+        filtered = filtered.filter((bar) => searchResults.includes(bar.id));
       }
 
       setFilteredBars(filtered);
@@ -64,25 +62,37 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
   const editBarById = async (barId) => {
     try {
-      const editedBar = await facade.editData(
-        `/api/bars/${barId}`,
-        editFormData
-      );
+      const editedBar = await facade.editData(`/api/bars/${barId}`, editFormData);
       setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar)));
       setEditingBar(null);
+  
+      const authors = await facade.fetchData("/api/authors");
+      const duplicateAuthors = authors.filter(
+        (author) =>
+          author.name.trim().toLowerCase() === editFormData.authorName.trim().toLowerCase() &&
+          author.bars.length === 0
+      );
+  
+      for (const duplicateAuthor of duplicateAuthors) {
+        console.log(`Deleting duplicate author with ID: ${duplicateAuthor.id}`);
+        await facade.deleteData(`/api/authors/${duplicateAuthor.id}`);
+      }
     } catch (error) {
       console.error("Error editing bar:", error);
     }
   };
+  
 
   const handleEditClick = (bar) => {
     const formattedDate = Array.isArray(bar.date)
-      ? `${bar.date[0]}-${String(bar.date[1]).padStart(2, "0")}-${String(bar.date[2]).padStart(2, "0")}`
-      : ""; 
+      ? `${bar.date[0]}-${String(bar.date[1]).padStart(2, "0")}-${String(
+          bar.date[2]
+        ).padStart(2, "0")}`
+      : "";
     setEditingBar(bar.id);
     setEditFormData({
       ...bar,
-      date: formattedDate, 
+      date: formattedDate,
     });
   };
 
@@ -97,9 +107,13 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   };
 
   const formatDate = (dateArray) => {
-    if (!Array.isArray(dateArray) || dateArray.length !== 3) return "Invalid Date";
+    if (!Array.isArray(dateArray) || dateArray.length !== 3)
+      return "Invalid Date";
     const [year, month, day] = dateArray;
-    return `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`;
+    return `${String(day).padStart(2, "0")}/${String(month).padStart(
+      2,
+      "0"
+    )}/${year}`;
   };
 
   return (
@@ -159,12 +173,14 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
               <div className="barsListDesign">
                 <h3>{bar.title}</h3>
                 <p>
-                  <div className="barsList-author">By {bar.authorName}  -  {formatDate(bar.date)} </div>
-                  <div className="barsList-description">Description: {bar.authorDescription}</div>
+                  <div className="barsList-author">
+                    By {bar.authorName} - {formatDate(bar.date)}{" "}
+                  </div>
+                  <div className="barsList-description">
+                    Description: {bar.authorDescription}
+                  </div>
                   <br />
-                  
                   <div className="quote">{bar.content}</div> <br />
-
                   <div className="genre">Genre: {bar.genre}</div> <br />
                 </p>
                 <button onClick={() => deleteBarById(bar.id)}>Delete</button>
