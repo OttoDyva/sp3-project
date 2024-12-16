@@ -91,6 +91,16 @@ const BarsForm = ({ setBars }) => {
 
   return (
     <div className="formstyle">
+{/* Show error message if the user is not logged in */}
+      {!isLoggedIn && (
+        <p className="error-message">
+          You need to log in to create a bar. Please create an account or log in.
+        </p>
+      )}
+
+      {/* Show form only if logged in */}
+      {isLoggedIn && (
+      <>
       <div className="title">
         <h1>Create new bar</h1>
       </div>
@@ -160,6 +170,9 @@ const BarsForm = ({ setBars }) => {
         <br />
         <button type="submit">Create Bar</button>
       </form>
+      </>
+      )}
+
       {successMessage && (
         <p className="success-message fade-in">{successMessage}</p>
       )}
