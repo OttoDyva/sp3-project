@@ -19,36 +19,49 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
-  const deleteUserById = async (userId) => {
+  const deleteUserByUsername = async (username) => {
     try {
-      await facade.deleteData(`/api/auth/users/${userId}`);
-      setUsers(users.filter((user) => user.id !== userId));
+      await facade.deleteData(`/api/auth/user/${username}`);
+      setUsers(users.filter((user) => user.username !== username));
     } catch (error) {
       console.error("Error deleting user:", error);
     }
   };
 
-  const editUserById = async (userId) => {
+  const editUserByUsername = async (username) => {
     try {
-      const editedUser = await facade.editData(
-        `/api/auth/users/${userId}`,
+      const updatedUser = await facade.editData(
+        `/api/auth/user/${username}`,
         editFormData
       );
-      setUsers(users.map((user) => (user.id === userId ? editedUser : user)));
+
+      // Update the user list immediately
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.username === username ? { ...user, ...editFormData } : user
+        )
+      );
       setEditingUser(null);
+      setEditFormData({});
     } catch (error) {
       console.error("Error editing user:", error);
     }
   };
 
   const handleEditClick = (user) => {
-    setEditingUser(user.id);
-    setEditFormData({ ...user });
+    setEditingUser(user.username);
+    setEditFormData({
+      roles: user.roles.join(","),
+      password: "",
+    }); 
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditFormData((prev) => ({ ...prev, [name]: value }));
+    setEditFormData((prev) => ({
+      ...prev,
+      [name]: name === "roles" ? value.split(",") : value,
+    }));
   };
 
   const handleCancelEdit = () => {
@@ -64,23 +77,47 @@ const UserList = () => {
       <div className="user-list-grid">
         {users.map((user) => (
           <div key={user.username} className="author-card">
-            <h3 className="author-name">{user.username}</h3>
-            <p className="author-roles">{user.roles.join(", ")}</p>
-            {editingUser === user.id ? (
+            <h3>{user.username}</h3>
+            <p>Roles: {user.roles.join(", ")}</p>
+
+            {editingUser === user.username ? (
               <div>
-                <input
-                  type="text"
-                  name="username"
-                  value={editFormData.username || ""}
-                  onChange={handleInputChange}
-                  placeholder="Username"
-                />
-                <button onClick={() => editUserById(user.id)}>Save</button>
-                <button onClick={handleCancelEdit}>Cancel</button>
+                <div>
+                  <label htmlFor={`roles-${user.username}`}>
+                    Roles (comma-separated):
+                  </label>
+                  <input
+                    id={`roles-${user.username}`}
+                    type="text"
+                    name="roles"
+                    value={editFormData.roles || ""}
+                    onChange={handleInputChange}
+                    placeholder="Roles"
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`password-${user.username}`}>Password:</label>
+                  <input
+                    id={`password-${user.username}`}
+                    type="password"
+                    name="password"
+                    value={editFormData.password || ""}
+                    onChange={handleInputChange}
+                    placeholder="Leave empty for no change. "
+                  />
+                </div>
+                <div>
+                  <button onClick={() => editUserByUsername(user.username)}>
+                    Save
+                  </button>
+                  <button onClick={handleCancelEdit}>Cancel</button>
+                </div>
               </div>
             ) : (
               <div>
-                <button onClick={() => deleteUserById(user.id)}>Delete</button>
+                <button onClick={() => deleteUserByUsername(user.username)}>
+                  Delete
+                </button>
                 <button onClick={() => handleEditClick(user)}>Edit</button>
               </div>
             )}
