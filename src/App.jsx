@@ -24,7 +24,6 @@ function App() {
     <>
       <Navbar />
       <div className="box">
-        <Header />
         <Routes>
           <Route path="/AuthorsList" element={<AuthorList />} />
           <Route path="/authors/:authorId" element={<AuthorBars />} /> {}

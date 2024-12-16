@@ -87,8 +87,10 @@ const BarsForm = ({ setBars }) => {
 
   return (
     <div className="formstyle">
+      <div className="title">
+        <h1>Create new bar</h1>
+      </div>
       <form onSubmit={handleSubmit} ref={formRef}>
-        <h2>Create a new bar</h2>
         <label htmlFor="title">Title</label>
         <input
           name="title"
@@ -97,6 +99,20 @@ const BarsForm = ({ setBars }) => {
           placeholder="Give your bar a title"
           required
         />
+        <br />
+        <label htmlFor="genre">Genre</label>
+        <select name="genre" id="genre" required>
+          <option value="" disabled defaultChecked>
+            Select Genre
+          </option>
+          <option value="PHILOSOPHY">PHILOSOPHY</option>
+          <option value="POEM">POEM</option>
+          <option value="MOTIVATIONAL">MOTIVATIONAL</option>
+          <option value="HUMOR">HUMOR</option>
+          <option value="SONG">SONG</option>
+          <option value="SPEECH">SPEECH</option>
+          <option value="STUPID">STUPID</option>
+        </select>
         <br />
         <label htmlFor="content">Content</label>
         <textarea
@@ -119,20 +135,6 @@ const BarsForm = ({ setBars }) => {
           placeholder="YYYY-MM-DD"
           required
         />
-        <br />
-        <label htmlFor="genre">Genre</label>
-        <select name="genre" id="genre" required>
-          <option value="" disabled defaultChecked>
-            Select Genre
-          </option>
-          <option value="PHILOSOPHY">PHILOSOPHY</option>
-          <option value="POEM">POEM</option>
-          <option value="MOTIVATIONAL">MOTIVATIONAL</option>
-          <option value="HUMOR">HUMOR</option>
-          <option value="SONG">SONG</option>
-          <option value="SPEECH">SPEECH</option>
-          <option value="STUPID">STUPID</option>
-        </select>
         <br />
         <label htmlFor="authorName">Author Name</label>
         <input

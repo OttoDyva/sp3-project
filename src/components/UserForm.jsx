@@ -35,7 +35,10 @@ const UserForm = ({ setUser }) => {
   return (
     <div className="userFormStyle">
       <form onSubmit={handleSubmit}>
-        <h2>Create user</h2>
+        <div className="title">
+          <h1>Create Account</h1>
+        </div>
+        <p>Welcome to the BARS crew! Please create a unique username and choose a strong, secure password.</p>
         <label htmlFor="username">Username</label>
         <input
           name="username"
@@ -50,7 +53,7 @@ const UserForm = ({ setUser }) => {
           type="password" 
         />
         <br />
-        <button type="submit">Submit</button>
+        <button type="submit">Create</button>
       </form>
       {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}

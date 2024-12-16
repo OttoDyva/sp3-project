@@ -12,6 +12,8 @@
   flex-direction: column;
   flex-wrap: wrap;
   border-radius: 2px;
+  border: 2px solid #E5D588; 
+  box-shadow: 0 0 5px #E5D588, 0 0 10px #E5D588;
 }
 
 .box h2 {

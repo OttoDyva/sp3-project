@@ -47,7 +47,6 @@ const SearchBar = ({ onSearchResults }) => {
     <div>
       <label htmlFor="search">Search: </label>
       <form onSubmit={handleSubmit} className="search-form">
-        
         <input
           id="search"
           type="text"
