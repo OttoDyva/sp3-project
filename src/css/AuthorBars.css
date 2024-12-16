@@ -4,6 +4,7 @@
   color: #E5D588;
   padding: 30px 20px;
   box-sizing: border-box;
+  text-align: left; /* Default alignment for all text */
   max-width: 1000px;
   margin: auto;
   border-radius: 8px;
@@ -15,7 +16,7 @@
   font-size: 2.5rem;
   color: #E5D588;
   margin-bottom: 20px;
-  text-align: center; /* Center the title */
+  text-align: left; /* Ensure title is aligned left */
 }
 
 .author-bars-container p {
@@ -23,7 +24,7 @@
   color: #ccc;
   line-height: 1.6;
   margin-bottom: 30px;
-  text-align: center; /* Center the description */
+  text-align: left; /* Align description text to the left */
 }
 
 /* Subtitle for Bars list */
@@ -31,7 +32,7 @@
   font-size: 2rem;
   color: #E5D588;
   margin-bottom: 20px;
-  text-align: center;
+  text-align: left; /* Left-align the subtitle */
 }
 
 /* Styling for the list of bars */
@@ -52,6 +53,7 @@
   width: 100%; /* Ensure it spans the full width */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Soft shadow for focus */
   transition: transform 0.3s ease, background-color 0.3s ease;
+  text-align: left; /* Ensure text inside the bars is aligned left */
 }
 
 /* Title of each bar post */
@@ -59,6 +61,7 @@
   color: #E5D588;
   font-weight: bold;
   font-size: 1.2rem; /* Slightly larger for better emphasis */
+  text-align: left; /* Ensure strong text is aligned left */
 }
 
 /* General text styling for the bar content */
@@ -67,6 +70,7 @@
   font-size: 1rem;
   margin: 10px 0;
   line-height: 1.5;
+  text-align: left; /* Align all bar content to the left */
 }
 
 /* Optional button styling (for future edit/delete functionality) */
@@ -80,6 +84,18 @@
   transition: background-color 0.3s ease;
   margin-top: 15px;
   font-size: 1rem;
+  text-align: left; /* Ensure button text alignment */
+}
+
+.bar-item .quote {
+  font-size: 1.5em;
+  color: #f9f9f9; 
+  font-style: italic;
+  margin: 0px 0;
+  line-height: 1.6; 
+  max-width: 500px; 
+  word-wrap: break-word; 
+  white-space: normal; 
 }
 
 .bar-item button:hover {
@@ -96,10 +112,10 @@
   .bar-item {
     padding: 15px;
     width: 100%; /* Ensure it takes full width on smaller screens */
+    text-align: left; /* Retain left alignment */
   }
 
   .bar-item p {
     font-size: 0.9rem; /* Smaller font size on mobile */
   }
 }
-

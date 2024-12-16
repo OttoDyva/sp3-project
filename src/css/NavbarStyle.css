@@ -1,15 +1,17 @@
 /* Navbar Container */
 .navbar {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: #262626;
   color: #fff;
   width: 100vw;
-  height: 16em;
+  height: auto;
   position: relative;
   overflow: hidden;
   z-index: 1;
+  padding-bottom: 1em;
 }
 
 button:focus {
@@ -36,6 +38,7 @@ button:focus {
   align-items: center;
   margin-top: 20px;
   flex-direction: column;
+  text-align: center;
 }
 
 .navbar-left .logo {
@@ -116,4 +119,90 @@ button:focus {
 
 .admin-links a:hover {
   color: #E5D588;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column; /* Stack the content vertically for smaller screens */
+    align-items: flex-start; /* Align all items to the left */
+    padding: 1em; /* Add padding for smaller screens */
+  }
+
+  .navbar-left {
+    flex-direction: row; /* Arrange the logo and header horizontally */
+    align-items: center; /* Center vertically */
+    justify-content: flex-start; /* Push logo to the left */
+    width: 100%; /* Take full width */
+    margin-bottom: 1em; /* Add spacing below logo */
+  }
+
+  .navbar-left .logo {
+    height: 5em; /* Adjust logo size for smaller screens */
+    margin-bottom: 0; /* Remove bottom margin */
+    margin-right: 1em; /* Add space to the right of the logo */
+  }
+
+  .navbar-right {
+    display: flex;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    flex-direction: column; /* Stack login/logout and links vertically */
+    align-items: flex-start; /* Align to the left */
+    align-items: center;
+    margin-top: 1em; /* Add spacing above */
+    background-color: none;
+    width: 40%;
+  }
+
+  .user-info {
+    gap: 0.3em; /* Smaller gap between elements */
+    width: 50%;
+  }
+
+  .user-info button {
+    font-size: 0.9em;
+    padding: 0.4em 0.8em; /* Adjust padding for smaller screens */
+  }
+
+  .username {
+    font-size: 0.9em; /* Smaller username text */
+  }
+
+  .admin-links {
+    
+    gap: 0.3em;
+  }
+
+  .admin-links a {
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar-left .logo {
+    height: 4em; /* Smaller logo for very small screens */
+  }
+
+  .navbar {
+    align-items: flex-start; /* Align the whole navbar to the left */
+  }
+
+  .user-info {
+    align-items: center; /* Center user info for very small screens */
+  }
+
+  .username {
+    font-size: 0.8em; /* Reduce font size further */
+  }
+
+  .user-info button {
+    font-size: 0.8em;
+    padding: 0.3em 0.6em; /* Smaller buttons */
+  }
+
+  .admin-links a {
+    font-size: 0.8em; /* Adjust link size */
+  }
 }
