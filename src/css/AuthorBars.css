@@ -1,17 +1,105 @@
+/* General container for the Author Bars page */
 .author-bars-container {
-    padding: 20px;
+  background-color: #2c2c2c;
+  color: #E5D588;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  max-width: 1000px;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7); /* Subtle shadow to bring focus */
+}
+
+/* Title for the Author and description */
+.author-bars-container h2 {
+  font-size: 2.5rem;
+  color: #E5D588;
+  margin-bottom: 20px;
+  text-align: center; /* Center the title */
+}
+
+.author-bars-container p {
+  font-size: 1.2rem;
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  text-align: center; /* Center the description */
+}
+
+/* Subtitle for Bars list */
+.author-bars-container h3 {
+  font-size: 2rem;
+  color: #E5D588;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Styling for the list of bars */
+.bars-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Full width for bar-item, allowing them to take up the full width of the container */
+.bar-item {
+  background-color: rgb(22, 22, 22);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #444;
+  box-sizing: border-box;
+  width: 100%; /* Ensure it spans the full width */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Soft shadow for focus */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Title of each bar post */
+.bar-item p strong {
+  color: #E5D588;
+  font-weight: bold;
+  font-size: 1.2rem; /* Slightly larger for better emphasis */
+}
+
+/* General text styling for the bar content */
+.bar-item p {
+  color: #ccc;
+  font-size: 1rem;
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+/* Optional button styling (for future edit/delete functionality) */
+.bar-item button {
+  padding: 10px 18px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 15px;
+  font-size: 1rem;
+}
+
+.bar-item button:hover {
+  background-color: #666;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  /* On smaller screens, the padding can be adjusted */
+  .author-bars-container {
+    padding: 20px 15px;
   }
-  
-  .bars-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  
+
   .bar-item {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #0a0a0a;
+    padding: 15px;
+    width: 100%; /* Ensure it takes full width on smaller screens */
   }
-  
+
+  .bar-item p {
+    font-size: 0.9rem; /* Smaller font size on mobile */
+  }
+}
+

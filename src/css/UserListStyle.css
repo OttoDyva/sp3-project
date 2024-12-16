@@ -1,0 +1,93 @@
+/* User List Container */
+.user-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    gap: 16px; /* Add space between title and user list */
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Title Styling */
+  .title {
+    width: 100%; 
+    text-align: center; 
+    margin-bottom: 16px; 
+  }
+  
+  .title h1 {
+    font-size: 2rem;
+    color: #ffffff;
+    margin: 0;
+  }
+  
+  /* User List Grid Styling (2 items per row) */
+  .user-list-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; 
+    padding: 16px;
+    box-sizing: border-box;
+    justify-content: space-between; 
+  }
+  
+  /* Individual user card */
+  .author-card {
+    background-color: rgb(22, 22, 22);
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 16px;
+    flex: 1 1 calc(50% - 16px); /* 2 items per row with gap */
+    box-sizing: border-box;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .author-card:hover {
+    border-color: #E5D588;
+  }
+  
+  /* Author name styling */
+  .author-name {
+    color: #E5D588;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+  
+  /* User role styling */
+  .author-roles {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin: 8px 0;
+  }
+  
+  /* Buttons inside the user card - scoped specifically to the user list */
+  .author-card button {
+    padding: 8px 16px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 4px; /* Space between buttons */
+  }
+  
+  .author-card button:hover {
+    background-color: #E5D588;
+    color: black;
+  }
+  
+  .author-card button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+  }
+  
+  /* Edit and Delete buttons inside the user card */
+  .author-card div {
+    display: flex;
+    justify-content: space-between; /* Space out the buttons */
+    gap: 8px;
+  }
+  

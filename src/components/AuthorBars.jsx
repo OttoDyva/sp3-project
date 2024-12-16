@@ -44,6 +44,7 @@ const AuthorBars = () => {
               <p>
                 <strong>Genre:</strong> {bar.genre}
               </p>
+              {/* Add edit and delete buttons here if needed */}
             </li>
           ))}
         </ul>

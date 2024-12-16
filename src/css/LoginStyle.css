@@ -1,82 +1,147 @@
+/* General Login Style */
 .loginStyle {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    flex-wrap: wrap;
+    padding: 14px;
 }
 
+/* Error Message */
 .error-message {
-  color: red;
-  font-weight: bold;
-  margin-top: auto;
-  margin-bottom: auto;
+    color: red;
+    font-weight: bold;
+    margin: auto;
 }
 
+/* Input Fields */
+.input-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1em;
+    width: 100%;
+    margin-bottom: 1.5em;
+}
 
+.input-container input {
+    flex: 1;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: #000;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
 
-.loginStyle input {
-    background-color: #D6D9D9;
-    color: black;
-    padding: 5%;
-    margin-top: 0;
-    margin-right: 1.5em;
-    height: 0.1em;
-    width: 11em;
-    outline-color: #E5D588;
-  }
+.input-container input:focus {
+    border-color: #E5D588;
+    box-shadow: 0 0 6px rgba(229, 213, 136, 0.8);
+}
 
-  .loginStyle button {
+.input-container input::placeholder {
+    color: #AAA;
+    font-style: italic;
+}
+
+/* Buttons */
+.loginStyle button {
     background-color: #E5D588;
     color: black;
-    outline-color: black;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: bold;
     margin-top: 1.5em;
     width: 8em;
-    height: auto;
-    font-size:0.9em;
+    font-size: 0.9em;
     cursor: pointer;
     border-radius: 0;
     margin-left: auto;
-  }
+}
 
-  button:hover {
+button:hover {
     filter: drop-shadow(0 0 1em #E5D588);
     outline-color: #E5D588;
-    outline: 0;
-  }
+}
 
-  .button-and-link {
+button:focus {
+    outline-color: #E5D588;
+}
+
+/* Button and Link Container */
+.button-and-link {
     display: flex;
-    justify-content: space-between; /* Space out login button and the link */
-    align-items: center; /* Align items vertically */
+    justify-content: space-between;
+    align-items: center;
     margin-top: 1em;
-  }
-  
-  .account-options {
+}
+
+.account-options {
     display: flex;
-    align-items: center; /* Aligns text and link vertically */
-    gap: 0.5em; /* Adds space between text and link */
+    align-items: center;
+    gap: 0.5em;
     margin-left: 1em;
-  }
-  
-  .account-options p {
-    margin: 0; /* Removes default margin from paragraph */
+}
+
+.account-options p {
+    margin: 0;
     font-size: 0.9em;
-  }
-  
-  .account-options a {
+}
+
+.account-options a {
     color: #E5D588;
     text-decoration: underline;
     cursor: pointer;
     font-size: 0.9em;
     margin-right: 2em;
-  }
-  
-  .loginStyle button {
-    margin: 0; /* Removes any margin to align properly with link */
-  }
-  
+}
 
-  
-  
+/* Modal Overlay and Container */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-container {
+    position: relative;
+    background-color: #262626;
+    padding: 2em;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+    border: 1px solid #E5D588;
+    box-shadow: 0 0 3px #E5D588, 0 0 8px #E5D588;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: white;
+    outline: none;
+}
+
+.close-btn:hover {
+    color: #E5D588;
+    outline: none;
+}
+
+/* Login Title */
+.logintitle {
+    font-size: 2em;
+    margin-top: 0;
+}

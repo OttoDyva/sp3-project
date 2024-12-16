@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../css/UserListStyle.css";
 import facade from "../util/apiFacade";
 
 const UserList = () => {
@@ -56,13 +57,15 @@ const UserList = () => {
   };
 
   return (
-    <div style={{ flex: 1, overflowY: "auto" }}>
-      <h2>Users</h2>
-      <div>
+    <div className="user-list-container">
+      <div className="title">
+        <h1>Admin Page</h1>
+      </div>
+      <div className="user-list-grid">
         {users.map((user) => (
           <div key={user.username} className="author-card">
             <h3 className="author-name">{user.username}</h3>
-            <h3 className="author-name">{user.roles}</h3>
+            <p className="author-roles">{user.roles.join(", ")}</p>
             {editingUser === user.id ? (
               <div>
                 <input
@@ -87,4 +90,5 @@ const UserList = () => {
     </div>
   );
 };
+
 export default UserList;

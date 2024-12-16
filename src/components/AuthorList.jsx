@@ -40,12 +40,15 @@ const AuthorList = () => {
 
   return (
     <div className="author-list-container">
-      <h2 className="author-list-header">Authors</h2>
+      <div className="title">
+        <h1>AUTHORS</h1>
+      </div>
 
       <SearchAuthor onSearchResults={setFilteredAuthors} />
       <div className="author-list-grid">
         {filteredAuthors.map((author) => (
           <div key={author.id} className="author-card">
+            {/* Author Name */}
             <h3
               className="author-name clickable"
               onClick={() => handleAuthorClick(author.id)}
@@ -55,13 +58,14 @@ const AuthorList = () => {
             <p className="author-description">{author.description}</p>
 
             {facade.loggedIn() && (
-                  <>
-                    {facade.hasUserAccess("admin") && (
-                      <button onClick={() => deleteAuthorById(author.id)}>Delete</button>
-                    )}
-                  </>
+              <>
+                {facade.hasUserAccess("admin") && (
+                  <div className="action-buttons">
+                    <button onClick={() => deleteAuthorById(author.id)}>Delete</button>
+                  </div>
                 )}
-
+              </>
+            )}
           </div>
         ))}
       </div>
