@@ -20,10 +20,28 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
     const fetchBarsAndGenres = async () => {
       try {
         const bars = await facade.fetchData("/api/bars");
+        const authors = await facade.fetchData("/api/authors");
+
+        const barsWithAuthors = bars.map((bar) => {
+          const author = authors.find(
+            (author) =>
+              author.name.trim().toLowerCase() ===
+              bar.authorName.trim().toLowerCase()
+          );
+
+          return {
+            ...bar,
+            authorId: author ? author.id : null, // Add authorId if found
+            authorName: bar.authorName || "Unknown",
+          };
+        });
+
         setBars(bars);
         setFilteredBars(bars);
+        setAuthors(barsWithAuthors);
 
         const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
+
         setGenres(uniqueGenres);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -32,38 +50,6 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
     fetchBarsAndGenres();
   }, [onSelectGenre]);
-
-  useEffect(() => {
-    const fetchBarsAndAuthors = async () => {
-      try {
-        const bars = await facade.fetchData("/api/bars");
-        const authors = await facade.fetchData("/api/authors");
-  
-        const barsWithAuthors = bars.map((bar) => {
-          const author = authors.find(
-            (author) => author.name.trim().toLowerCase() === bar.authorName.trim().toLowerCase()
-          );
-  
-          return {
-            ...bar,
-            authorId: author ? author.id : null, // Add authorId if found
-            authorName: bar.authorName || "Unknown",
-          };
-        });
-  
-        setBars(barsWithAuthors);
-        setFilteredBars(barsWithAuthors);
-  
-        const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
-        setGenres(uniqueGenres);
-      } catch (error) {
-        console.error("Error fetching bars or authors:", error);
-      }
-    };
-  
-    fetchBarsAndAuthors();
-  }, []);
-  
 
   useEffect(() => {
     const applyFilters = () => {
@@ -218,12 +204,15 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
                   <div>
                     <div className="barsList-author">
                       <ul>
-                        <li>
+                        <li key={`author-${bar.id}`}>
                           <Link to={`/authors/${bar.authorId}`}>
-                            By {bar.authorName} - {formatDate(bar.date)}
+                            By {bar.authorName}
                           </Link>
                         </li>
                       </ul>
+                    </div>
+                    <div className="barsList-date">
+                      Date: {formatDate(bar.date)}
                     </div>
                     <div className="barsList-description">
                       Description: {bar.authorDescription}
