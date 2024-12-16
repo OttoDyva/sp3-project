@@ -1,6 +1,6 @@
 /* General container for the Author Bars page */
 .author-bars-container {
-  background-color: rgb(22, 22, 22);
+  background-color: #2c2c2c;
   color: #E5D588;
   padding: 30px 20px;
   box-sizing: border-box;
@@ -43,7 +43,7 @@
 
 /* Full width for bar-item, allowing them to take up the full width of the container */
 .bar-item {
-  background-color: rgb(33, 33, 33);
+  background-color: rgb(22, 22, 22);
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
