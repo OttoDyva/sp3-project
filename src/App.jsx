@@ -1,9 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 
 // Components
 import AuthorList from "./components/AuthorList";
-import AuthorBars from "./components/AuthorBars"; 
+import AuthorBars from "./components/AuthorBars";
 import Header from "./components/Header";
 import BarsList from "./components/BarsList";
 import Navbar from "./components/Navbar";
@@ -11,9 +11,10 @@ import UserList from "./components/UserList";
 import ProtectedRoute from "./components/ProtectedRoute";
 import BarsForm from "./components/BarsForm";
 import UserForm from "./components/UserForm";
+import Homepage from "./components/Homepage";
 
 // Home page CSS
-import './App.css'
+import "./App.css";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState("");
@@ -25,6 +26,8 @@ function App() {
       <Navbar />
       <div className="box">
         <Routes>
+          <Route path="/Homepage" element={<Homepage />} />
+          <Route path="/" element={<Navigate to="/Homepage" />} />
           <Route path="/AuthorsList" element={<AuthorList />} />
           <Route path="/authors/:authorId" element={<AuthorBars />} /> {}
           <Route
