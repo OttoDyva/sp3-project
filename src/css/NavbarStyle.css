@@ -19,6 +19,15 @@ button:focus {
   border: 1px solid #E5D588; 
 }
 
+.version {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 /* Navbar Video */
 .navbar-video {
   position: absolute;

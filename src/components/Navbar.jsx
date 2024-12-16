@@ -55,6 +55,9 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
+      <div className="version">
+        <h4>Version: v.1.10.0</h4>
+      </div>
       <video autoPlay loop muted playsInline className="navbar-video">
         <source src={videoloop3} type="video/mp4" />
         Your browser does not support the video tag.
