@@ -35,9 +35,11 @@ const AuthorBars = () => {
               <p>
                 <strong>Title:</strong> {bar.title}
               </p>
-              <p>
-                <strong>Content:</strong> {bar.content}
+              <br />
+              <p className="quote">
+                {bar.content}
               </p>
+              <br />
               <p>
                 <strong>Date:</strong> {bar.date.join("-")}
               </p>
