@@ -1,0 +1,15 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center */
+    align-items: center; /* Horizontally center */
+    text-align: center; /* Center the text inside the container */
+}
+
+.home h2 {
+    margin-top: 0;
+}
+
+.home p {
+    font-size: 1.5em;
+}
