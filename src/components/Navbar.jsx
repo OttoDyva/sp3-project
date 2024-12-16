@@ -38,6 +38,7 @@ const Navbar = () => {
       setLoggedIn(true);
       setUsername(user);
       setModalOpen(false);
+      navigate("/"); // Redirect to home page
     } catch (error) {
       console.error("Login failed:", error);
       throw error;

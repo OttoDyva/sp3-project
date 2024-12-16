@@ -3,6 +3,7 @@ import facade from "../util/apiFacade";
 import GenreFilter from "./GenreFilter";
 import SearchBar from "./SearchBar";
 import "../css/BarsListStyle.css";
+import { Link } from "react-router";
 
 const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);
@@ -11,6 +12,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [editingBar, setEditingBar] = useState(null);
   const [editFormData, setEditFormData] = useState({});
   const [genres, setGenres] = useState([]);
+  const [authors, setAuthors] = useState([]);
 
   useEffect(() => {
     onSelectGenre(""); // Reset genre filter when component is mounted
@@ -30,6 +32,38 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
     fetchBarsAndGenres();
   }, [onSelectGenre]);
+
+  useEffect(() => {
+    const fetchBarsAndAuthors = async () => {
+      try {
+        const bars = await facade.fetchData("/api/bars");
+        const authors = await facade.fetchData("/api/authors");
+  
+        const barsWithAuthors = bars.map((bar) => {
+          const author = authors.find(
+            (author) => author.name.trim().toLowerCase() === bar.authorName.trim().toLowerCase()
+          );
+  
+          return {
+            ...bar,
+            authorId: author ? author.id : null, // Add authorId if found
+            authorName: bar.authorName || "Unknown",
+          };
+        });
+  
+        setBars(barsWithAuthors);
+        setFilteredBars(barsWithAuthors);
+  
+        const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
+        setGenres(uniqueGenres);
+      } catch (error) {
+        console.error("Error fetching bars or authors:", error);
+      }
+    };
+  
+    fetchBarsAndAuthors();
+  }, []);
+  
 
   useEffect(() => {
     const applyFilters = () => {
@@ -180,17 +214,25 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
             ) : (
               <div className="barsListDesign">
                 <h3>{bar.title}</h3>
-                <p>
-                  <div className="barsList-author">
-                    By {bar.authorName} - {formatDate(bar.date)}{" "}
-                  </div>
-                  <div className="barsList-description">
-                    Description: {bar.authorDescription}
+                <div>
+                  <div>
+                    <div className="barsList-author">
+                      <ul>
+                        <li>
+                          <Link to={`/authors/${bar.authorId}`}>
+                            By {bar.authorName} - {formatDate(bar.date)}
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="barsList-description">
+                      Description: {bar.authorDescription}
+                    </div>
                   </div>
                   <br />
                   <div className="quote">{bar.content}</div> <br />
                   <div className="genre">Genre: {bar.genre}</div> <br />
-                </p>
+                </div>
 
                 {facade.loggedIn() && (
                   <>
