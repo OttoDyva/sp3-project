@@ -8,19 +8,21 @@ function handleHttpErrors(res) {
 }
 
 function apiFacade() {
+  // Token Handling - Persist in localStorage
   const setToken = (token) => localStorage.setItem("jwtToken", token);
-  const getToken = () => localStorage.getItem("jwtToken"); 
+  const getToken = () => localStorage.getItem("jwtToken");
   const loggedIn = () => getToken() !== null;
   const logout = () => localStorage.removeItem("jwtToken");
 
+  // Role handling from JWT token
   const getUserRoles = () => {
     const token = getToken();
-    if (token != null) {
+    if (token) {
       const payloadBase64 = token.split(".")[1];
       const decodedClaims = JSON.parse(window.atob(payloadBase64));
-      const roles = decodedClaims.roles;
-      return roles;
-    } else return "";
+      return decodedClaims.roles || "";
+    }
+    return "";
   };
 
   const hasUserAccess = (neededRole) => {
@@ -28,6 +30,7 @@ function apiFacade() {
     return roles.includes(neededRole);
   };
 
+  // Login
   const login = (user, password) => {
     const options = makeOptions("POST", false, {
       username: user,
@@ -36,15 +39,17 @@ function apiFacade() {
     return fetch(`${BASE_URL}/api/auth/login`, options)
       .then(handleHttpErrors)
       .then((res) => {
-        setToken(res.token);
+        setToken(res.token); // Save the JWT token to localStorage
       });
   };
 
+  // Generic Fetch
   const fetchData = async (endpoint) => {
     const options = makeOptions("GET", true);
     return await fetch(`${BASE_URL}${endpoint}`, options).then(handleHttpErrors);
   };
 
+  // Helper to build fetch options
   const makeOptions = (method, addToken, body) => {
     const opts = {
       method: method,
@@ -62,11 +67,19 @@ function apiFacade() {
     return opts;
   };
 
+  // POST Data
+  const postData = async (endpoint, data) => {
+    const options = makeOptions("POST", true, data);
+    return await fetch(`${BASE_URL}${endpoint}`, options).then(handleHttpErrors);
+  };
+
+  // DELETE Data
   const deleteData = async (endpoint) => {
     const options = makeOptions("DELETE", true);
     return await fetch(`${BASE_URL}${endpoint}`, options).then(handleHttpErrors);
   };
 
+  // PUT Data (Edit)
   const editData = async (endpoint, data) => {
     const options = makeOptions("PUT", true, data);
     return await fetch(`${BASE_URL}${endpoint}`, options).then(handleHttpErrors);
@@ -74,13 +87,14 @@ function apiFacade() {
 
   return {
     setToken,
-    getToken, // Add this to the returned object
+    getToken,
     getUserRoles,
     login,
     logout,
     loggedIn,
     fetchData,
     hasUserAccess,
+    postData,
     deleteData,
     editData,
   };
