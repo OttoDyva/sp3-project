@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import "../css/LoginStyle.css";
 import { Link } from "react-router-dom";
+
+// CSS
+import "../css/LoginStyle.css";
+
+// Util
 import facade from "../util/apiFacade";
 
 function LogIn({ login, closeModal }) {

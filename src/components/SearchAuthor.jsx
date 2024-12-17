@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
+
+// CSS
 import "../css/SearchBarStyle.css";
+
+// Util
 import facade from "../util/apiFacade";
 
 const SearchAuthor = ({ onSearchResults }) => {

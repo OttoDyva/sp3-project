@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+// Util
 import facade from "../util/apiFacade";
+
+// CSS
 import "../css/UserFormStyle.css";
 
 const UserForm = ({ setUser }) => {

@@ -1,5 +1,9 @@
 import { useEffect, useState, useRef } from "react";
+
+// Util
 import facade from "../util/apiFacade";
+
+// CSS
 import "../css/BarsFormStyle.css";
 
 const BarsForm = ({ setBars }) => {

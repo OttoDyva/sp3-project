@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import facade from "../util/apiFacade";
+
+// CSS
 import "../css/AuthorBars.css";
 
 const AuthorBars = () => {
