@@ -3,25 +3,31 @@ import logotwo from "../assets/logotwo.png";
 import videoloop3 from "../assets/videoloop3.mp4";
 import "../css/NavbarStyle.css";
 import LogIn from "./LogIn";
-import LoggedIn from "./LoggedIn";
 import facade from "../util/apiFacade";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 
 const Navbar = () => {
-  const [loggedIn, setLoggedIn] = useState(
-    localStorage.getItem("loggedIn") === "true"
-  );
-  const [username, setUsername] = useState(
-    localStorage.getItem("username") || ""
-  );
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.setItem("loggedIn", loggedIn);
-    localStorage.setItem("username", username);
-  }, [loggedIn, username]);
+    const token = facade.getToken();
+    if (token) {
+      try {
+        // Extract roles and username from token
+        const payloadBase64 = token.split(".")[1];
+        const decodedClaims = JSON.parse(window.atob(payloadBase64));
+        setUsername(decodedClaims.username);
+        setLoggedIn(true);
+      } catch (error) {
+        console.error("Invalid token:", error);
+        logout();
+      }
+    }
+  }, []);
 
   const logout = () => {
     facade.logout();
@@ -35,10 +41,13 @@ const Navbar = () => {
   const login = async (user, pass) => {
     try {
       await facade.login(user, pass);
+      const token = facade.getToken();
+      const payloadBase64 = token.split(".")[1];
+      const decodedClaims = JSON.parse(window.atob(payloadBase64));
+      setUsername(decodedClaims.username);
       setLoggedIn(true);
-      setUsername(user);
       setModalOpen(false);
-      navigate("/"); // Redirect to home page
+      navigate("/");
     } catch (error) {
       console.error("Login failed:", error);
       throw error;
@@ -46,11 +55,11 @@ const Navbar = () => {
   };
 
   const openModal = () => {
-    setModalOpen(true); // Open modal
+    setModalOpen(true);
   };
 
   const closeModal = () => {
-    setModalOpen(false); // Close modal
+    setModalOpen(false);
   };
 
   return (
@@ -95,7 +104,6 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Modal rendering */}
       {isModalOpen && <LogIn login={login} closeModal={closeModal} />}
     </nav>
   );
