@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
+
+// Util
 import facade from "../util/apiFacade";
+
+// Components
 import GenreFilter from "./GenreFilter";
 import SearchBar from "./SearchBar";
+
+// CSS
 import "../css/BarsListStyle.css";
-import { Link } from "react-router";
 
 const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [bars, setBars] = useState([]);

@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import facade from "../util/apiFacade";
-import "../css/Author.css";
+
+// Components
 import SearchAuthor from "./SearchAuthor";
+
+// Util
+import facade from "../util/apiFacade";
+
+// CSS
+import "../css/Author.css";
 
 const AuthorList = () => {
   const [authors, setAuthors] = useState([]);
