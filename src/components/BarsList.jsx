@@ -38,6 +38,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
               bar.authorName.trim().toLowerCase()
           );
 
+
           return {
             ...bar,
             authorId: author ? author.id : null, // Add authorId if found

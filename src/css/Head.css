@@ -5,7 +5,6 @@
     justify-content: space-around;  
     flex-wrap: wrap; 
     background-color: rgba(0, 0, 0, 0.3);
-    
   }
   
   .header-design ul {
@@ -47,4 +46,36 @@
   .header-design .active-link {
     background-color: #E5D588; /* Active link color */
   }
+
+  /* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .header-design ul {
+    justify-content: space-around; /* Space buttons evenly */
+     /* Maintain spacing between buttons */
+  }
+
+  .header-design li {
+    flex: 0 1 auto; /* Buttons shrink proportionally */
+    margin: 0.3em 0.4em; /* Add vertical margin if buttons wrap */
+  }
+
+  .header-design a {
+    font-size: 0.9rem; /* Slightly smaller font size */
+    padding: 0.8em; /* Adjust padding for better touch targets */
+    min-width: 6em; /* Adjust button size for smaller screens */
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header-design ul {
+    gap: 0.3em; /* Reduce spacing for smaller screens */
+  }
+
+  .header-design a {
+    font-size: 0.8rem; /* Further reduce font size */
+    padding: 0.6em; /* Smaller padding for small screens */
+    min-width: 5.5em; /* Adjust button width for smaller screens */
+  }
+}
   

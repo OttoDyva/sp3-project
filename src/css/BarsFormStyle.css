@@ -9,6 +9,23 @@
     border: 1px solid rgb(22, 22, 22); 
 }
 
+@media (max-width: 768px) {
+  .formstyle {
+    max-width: 95%; /* Make the form box wider */
+    min-width: 90%; /* Increase the minimum width for better fit */
+    padding: 20px; /* Retain the padding */
+  }
+}
+
+h4 {
+  margin: 0;
+}
+
+h2 {
+  color: #E5D588;
+  margin-bottom: 10px;
+}
+
 h4 {
     margin: 0;
 }
