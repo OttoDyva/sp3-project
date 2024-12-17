@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+
+// Util
 import facade from "../util/apiFacade";
 
 const GenreFilter = ({ onSelectGenre }) => {

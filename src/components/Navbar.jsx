@@ -1,12 +1,21 @@
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// Assets
 import logotwo from "../assets/logotwo.png";
 import videoloop3 from "../assets/videoloop3.mp4";
-import "../css/NavbarStyle.css";
+
+// Components
 import LogIn from "./LogIn";
 import LoggedIn from "./LoggedIn";
-import facade from "../util/apiFacade";
-import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
+
+// CSS
+import "../css/NavbarStyle.css";
+
+// Util
+import facade from "../util/apiFacade";
+
 
 const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(
