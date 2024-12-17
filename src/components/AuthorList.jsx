@@ -17,6 +17,9 @@ const AuthorList = () => {
   const [editFormData, setEditFormData] = useState({});
   const navigate = useNavigate();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const authorsPerPage = 25;
+
   // Fetch authors on component mount
   useEffect(() => {
     const fetchAuthors = async () => {
@@ -86,6 +89,29 @@ const AuthorList = () => {
     navigate(`/authors/${authorId}`);
   };
 
+  // Paginate the filtered authors
+  const indexOfLastAuthor = currentPage * authorsPerPage;
+  const indexOfFirstAuthor = indexOfLastAuthor - authorsPerPage;
+  const currentAuthors = filteredAuthors.slice(indexOfFirstAuthor, indexOfLastAuthor);
+
+  const totalPages = Math.ceil(filteredAuthors.length / authorsPerPage);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0); // Scroll to the top when the page changes
+  };
+
+  // Navigate to first/last page
+  const goToFirstPage = () => {
+    setCurrentPage(1);
+    window.scrollTo(0, 0);
+  };
+
+  const goToLastPage = () => {
+    setCurrentPage(totalPages);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="author-list-container">
       <div className="title">
@@ -94,7 +120,7 @@ const AuthorList = () => {
 
       <SearchAuthor onSearchResults={setFilteredAuthors} />
       <div className="author-list-grid">
-        {filteredAuthors.map((author) => (
+        {currentAuthors.map((author) => (
           <div key={author.id} className="author-card">
             {editingAuthor === author.id ? (
               // Edit form
@@ -146,6 +172,23 @@ const AuthorList = () => {
             )}
           </div>
         ))}
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="pagination">
+        <button onClick={goToFirstPage} disabled={currentPage === 1}>
+          &lt;&lt; First
+        </button>
+        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+          &lt; Prev
+        </button>
+        <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>
+          Next &gt;
+        </button>
+        <button onClick={goToLastPage} disabled={currentPage === totalPages}>
+          Last &gt;&gt;
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
       </div>
     </div>
   );

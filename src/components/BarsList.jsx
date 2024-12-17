@@ -20,6 +20,9 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const [genres, setGenres] = useState([]);
   const [authors, setAuthors] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const barsPerPage = 25;
+
   useEffect(() => {
     onSelectGenre(""); // Reset genre filter when component is mounted
 
@@ -143,6 +146,28 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
     )}/${year}`;
   };
 
+  const indexOfLastBar = currentPage * barsPerPage;
+  const indexOfFirstBar = indexOfLastBar - barsPerPage;
+  const currentBars = filteredBars.slice(indexOfFirstBar, indexOfLastBar);
+
+  const totalPages = Math.ceil(filteredBars.length / barsPerPage);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0); // Scroll to the top when the page changes
+  };
+
+  // Navigate to first/last page
+  const goToFirstPage = () => {
+    setCurrentPage(1);
+    window.scrollTo(0, 0);
+  };
+
+  const goToLastPage = () => {
+    setCurrentPage(totalPages);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div style={{ flex: 1, overflowY: "auto" }}>
       <div className="title">
@@ -162,7 +187,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       </div>
 
       <ul>
-        {filteredBars.map((bar) => (
+        {currentBars.map((bar) => (
           <li className="listDesign" key={bar.id} style={{ cursor: "pointer" }}>
             {editingBar === bar.id ? (
               <div>
@@ -248,6 +273,22 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
           </li>
         ))}
       </ul>
+
+      <div className="pagination">
+        <button onClick={goToFirstPage} disabled={currentPage === 1}>
+          &lt;&lt; First
+        </button>
+        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+          &lt; Prev
+        </button>
+        <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>
+          Next &gt;
+        </button>
+        <button onClick={goToLastPage} disabled={currentPage === totalPages}>
+          Last &gt;&gt;
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
+      </div>
     </div>
   );
 };
