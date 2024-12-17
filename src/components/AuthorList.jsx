@@ -18,7 +18,7 @@ const AuthorList = () => {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const authorsPerPage = 25;
+  const authorsPerPage = 27;
 
   // Fetch authors on component mount
   useEffect(() => {
