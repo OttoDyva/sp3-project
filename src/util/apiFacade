@@ -4,8 +4,15 @@ function handleHttpErrors(res) {
   if (!res.ok) {
     return Promise.reject({ status: res.status, fullError: res.json() });
   }
+
+  // Check for 204 No Content response
+  if (res.status === 204) {
+    return {}; // Return an empty object for no content
+  }
+
   return res.json();
 }
+
 
 function apiFacade() {
   // Token Handling - Persist in localStorage
@@ -75,9 +82,28 @@ function apiFacade() {
 
   // DELETE Data
   const deleteData = async (endpoint) => {
-    const options = makeOptions("DELETE", true);
-    return await fetch(`${BASE_URL}${endpoint}`, options).then(handleHttpErrors);
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+  
+    if (response.status === 204) {
+      // No content returned, return a simple success message
+      return { message: "Resource deleted successfully" };
+    }
+  
+    if (!response.ok) {
+      throw new Error(`Failed to delete data: ${response.status}`);
+    }
+  
+    const text = await response.text();
+    return text ? JSON.parse(text) : {};
   };
+  
 
   // PUT Data (Edit)
   const editData = async (endpoint, data) => {
