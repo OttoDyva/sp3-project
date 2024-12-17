@@ -1,102 +1,3 @@
-/* General Login Style */
-.loginStyle {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    padding: 14px;
-}
-
-/* Error Message */
-.error-message {
-    color: red;
-    font-weight: bold;
-    margin: auto;
-}
-
-/* Input Fields */
-.input-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1em;
-    width: 100%;
-    margin-bottom: 1.5em;
-}
-
-.input-container input {
-    flex: 1;
-    padding: 0.5em;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1em;
-    background-color: #000;
-    color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    outline: none;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.input-container input:focus {
-    border-color: #E5D588;
-    box-shadow: 0 0 6px rgba(229, 213, 136, 0.8);
-}
-
-.input-container input::placeholder {
-    color: #AAA;
-    font-style: italic;
-}
-
-/* Buttons */
-.loginStyle button {
-    background-color: #E5D588;
-    color: black;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: bold;
-    margin-top: 1.5em;
-    width: 8em;
-    font-size: 0.9em;
-    cursor: pointer;
-    border-radius: 0;
-    margin-left: auto;
-}
-
-button:hover {
-    filter: drop-shadow(0 0 1em #E5D588);
-    outline-color: #E5D588;
-}
-
-button:focus {
-    outline-color: #E5D588;
-}
-
-/* Button and Link Container */
-.button-and-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1em;
-}
-
-.account-options {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    margin-left: 1em;
-}
-
-.account-options p {
-    margin: 0;
-    font-size: 0.9em;
-}
-
-.account-options a {
-    color: #E5D588;
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 0.9em;
-    margin-right: 2em;
-}
-
 /* Modal Overlay and Container */
 .modal-overlay {
     position: fixed;
@@ -116,7 +17,8 @@ button:focus {
     background-color: #262626;
     padding: 2em;
     border-radius: 8px;
-    width: 400px;
+    width: 90%; /* Adjust width for smaller screens */
+    max-width: 400px; /* Limit maximum size */
     text-align: center;
     border: 1px solid #E5D588;
     box-shadow: 0 0 3px #E5D588, 0 0 8px #E5D588;
@@ -125,8 +27,8 @@ button:focus {
 /* Close Button */
 .close-btn {
     position: absolute;
-    top: 2px;
-    right: 2px;
+    top: 0.5em;
+    right: 0.5em;
     background-color: transparent;
     border: none;
     font-size: 1.5em;
@@ -137,11 +39,113 @@ button:focus {
 
 .close-btn:hover {
     color: #E5D588;
-    outline: none;
 }
 
 /* Login Title */
 .logintitle {
-    font-size: 2em;
-    margin-top: 0;
+    font-size: 1.8em;
+    margin-bottom: 1em;
+}
+
+/* Input Fields in Column */
+.input-container {
+    display: flex;
+    flex-direction: column; /* Stack inputs vertically */
+    align-items: center; /* Center align inputs */
+    gap: 1em;
+}
+
+.input-container input {
+    width: 80%; /* Set input width to 80% of modal */
+    padding: 0.7em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    background-color: #000;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    
+}
+
+.input-container input:focus {
+    border-color: #E5D588;
+    box-shadow: 0 0 6px rgba(229, 213, 136, 0.8);
+}
+
+.input-container input::placeholder {
+    color: #AAA;
+    font-style: italic;
+    background-color: #000;
+}
+
+/* Buttons */
+.login-button {
+    width: 80%;
+    padding: 0.7em;
+    background-color: #E5D588;
+    color: black;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 1.5em auto 0;
+    display: block;
+}
+
+button:hover {
+    filter: drop-shadow(0 0 1em #E5D588);
+}
+
+button:focus {
+    outline-color: #E5D588;
+}
+
+/* Account Options */
+.account-options {
+    display: flex;
+    flex-direction: column; /* Stack elements for smaller screens */
+    align-items: center; /* Center align the options */
+    gap: 0.5em;
+    margin-top: 1em;
+}
+
+.account-options p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.account-options a {
+    margin: 0;
+    text-decoration: underline;
+    color: #E5D588;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 480px) {
+    .modal-container {
+        width: 80%; /* Use almost full width on very small screens */
+        padding: 1.5em;
+    }
+
+    .logintitle {
+        font-size: 1.5em; /* Reduce title size */
+    }
+
+    .input-container input {
+        font-size: 0.9em; /* Adjust font size for smaller screens */
+        padding: 0.6em; /* Adjust padding for better touch targets */
+    }
+
+    .loginStyle button {
+        font-size: 0.8em; /* Reduce button font size */
+    }
+
+    .account-options a {
+        font-size: 0.8em; /* Smaller text for links */
+    }
 }

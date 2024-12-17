@@ -122,3 +122,55 @@ ul {
     border-radius: 20px; 
     margin: 0px 0;
 }
+
+/* For small screens (mobile), adjust flex properties */
+@media screen and (max-width: 768px) {
+
+    .listDesign {
+        flex: 1 1 100%; 
+        box-sizing: border-box;
+        display: flex;
+    }
+  
+  
+    /* Ensure search genre elements don't overflow */
+    .searchgenre {
+      display: flex;
+      flex-direction: column; /* Stack the search and genre filters vertically */
+      width: 100%;
+      gap: 1em;
+      padding: 0 5px;
+      box-sizing: border-box;
+    }
+  
+    .searchgenre > .searchBar {
+      flex: 1; /* Search bar takes up available space */
+      
+    }
+  
+    .searchgenre > .genreFilter {
+      flex: 1; /* Genre filter takes up available space */
+      
+    }
+  
+    /* Make the action buttons fit better on mobile */
+    .barsListDesign .action-buttons {
+      position: relative; /* Change to relative positioning to contain within parent */
+      top: auto;
+      right: auto;
+      margin-top: 10px; /* Give them space */
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .barsListDesign {
+      flex: 1 1 100%; /* Full width on smaller screens */
+      max-width: 100%; /* Prevent overflow */
+      flex-direction: column;
+    }
+  
+    .searchgenre {
+      flex-direction: column; /* Stack elements vertically */
+      gap: 0.5em;
+    }
+  }

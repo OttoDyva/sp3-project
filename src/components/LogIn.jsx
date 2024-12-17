@@ -34,7 +34,9 @@ function LogIn({ login, closeModal }) {
     <div className="modal-overlay">
       <div className="modal-container">
         <div className="model-logo-close">
-        <button className="close-btn" onClick={closeModal}>×</button>
+          <button className="close-btn" onClick={closeModal}>
+            ×
+          </button>
         </div>
         <div className="logintitle">
           <h2>Login</h2>
@@ -57,11 +59,11 @@ function LogIn({ login, closeModal }) {
           </div>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           <div className="button-and-link">
-            <button type="submit">Login</button>
+            <button type="submit" className="login-button">Login</button>
             <div className="account-options">
               <p>Don't have an account yet?</p>
               <div onClick={closeModal}>
-                <Link to="/UserForm">Create User</Link>
+                <Link to="/UserForm">Create Account Here</Link>
               </div>
             </div>
           </div>

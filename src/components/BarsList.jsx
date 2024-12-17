@@ -38,32 +38,32 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       try {
         const bars = await facade.fetchData("/api/bars");
         const authors = await facade.fetchData("/api/authors");
-  
+
         const barsWithAuthors = bars.map((bar) => {
           const author = authors.find(
-            (author) => author.name.trim().toLowerCase() === bar.authorName.trim().toLowerCase()
+            (author) =>
+              author.name.trim().toLowerCase() === bar.authorName.trim().toLowerCase()
           );
-  
+
           return {
             ...bar,
             authorId: author ? author.id : null, // Add authorId if found
             authorName: bar.authorName || "Unknown",
           };
         });
-  
+
         setBars(barsWithAuthors);
         setFilteredBars(barsWithAuthors);
-  
+
         const uniqueGenres = [...new Set(bars.map((bar) => bar.genre))];
         setGenres(uniqueGenres);
       } catch (error) {
         console.error("Error fetching bars or authors:", error);
       }
     };
-  
+
     fetchBarsAndAuthors();
   }, []);
-  
 
   useEffect(() => {
     const applyFilters = () => {
@@ -170,8 +170,15 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
       </div>
 
       <ul>
-        {filteredBars.map((bar) => (
-          <li className="listDesign" key={bar.id} style={{ cursor: "pointer" }}>
+        {filteredBars.map((bar, index) => (
+          <li
+            className="listDesign"
+            key={bar.id}
+            style={{
+              cursor: "pointer",
+              animationDelay: `${index * 0.1}s`, // Delay each item slightly
+            }}
+          >
             {editingBar === bar.id ? (
               <div>
                 <input
