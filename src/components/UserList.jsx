@@ -6,16 +6,25 @@ import "../css/UserListStyle.css";
 // Util
 import facade from "../util/apiFacade";
 
+// Components
+import SearchUser from "./SearchUser";
+
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
   const [editFormData, setEditFormData] = useState({});
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 20;
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const users = await facade.fetchData("/api/auth/users");
         setUsers(Array.isArray(users) ? users : []);
+        setFilteredUsers(Array.isArray(users) ? users : []);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -73,13 +82,39 @@ const UserList = () => {
     setEditFormData({});
   };
 
+   // Paginate the filtered authors
+   const indexOfLastUser = currentPage * usersPerPage;
+   const indexOfFirstUser = indexOfLastUser - usersPerPage;
+   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+ 
+   const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+ 
+   const paginate = (pageNumber) => {
+     setCurrentPage(pageNumber);
+     window.scrollTo(0, 0); // Scroll to the top when the page changes
+   };
+ 
+   // Navigate to first/last page
+   const goToFirstPage = () => {
+     setCurrentPage(1);
+     window.scrollTo(0, 0);
+   };
+ 
+   const goToLastPage = () => {
+     setCurrentPage(totalPages);
+     window.scrollTo(0, 0);
+   };
+ 
+
   return (
     <div className="user-list-container">
       <div className="title">
         <h1>Admin Page</h1>
       </div>
+      
+      <SearchUser onSearchResults={setFilteredUsers} />
       <div className="user-list-grid">
-        {users.map((user) => (
+        {currentUsers.map((user) => (
           <div key={user.username} className="author-card">
             <h3>{user.username}</h3>
             <p>Roles: {user.roles.join(", ")}</p>
@@ -128,6 +163,24 @@ const UserList = () => {
           </div>
         ))}
       </div>
+
+      {/* Pagination Controls */}
+      <div className="pagination">
+        <button onClick={goToFirstPage} disabled={currentPage === 1}>
+          &lt;&lt; First
+        </button>
+        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+          &lt; Prev
+        </button>
+        <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>
+          Next &gt;
+        </button>
+        <button onClick={goToLastPage} disabled={currentPage === totalPages}>
+          Last &gt;&gt;
+        </button>
+        <span>Page {currentPage} of {totalPages}</span>
+      </div>
+
     </div>
   );
 };
