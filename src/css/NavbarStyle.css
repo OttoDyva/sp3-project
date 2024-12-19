@@ -53,9 +53,10 @@ button:focus {
 }
 
 .navbar-left .logo {
-  height: 8em;
+  height: 9em;
   text-decoration: none;
   margin-bottom: 30px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 /* Navbar Header */
