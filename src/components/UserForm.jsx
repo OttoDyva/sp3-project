@@ -19,9 +19,11 @@ const UserForm = ({ setUser }) => {
     const obj = Object.fromEntries(form.entries());
 
     try {
-      const createdUser = await facade.postUserData("/api/auth/register", obj);
+      const createdUser = await facade.postData("/api/auth/register", obj);
       setUser((prevUser) => [...prevUser, createdUser]);
 
+      console.log(setUser);
+      console.log("User created:", createdUser);
       setSuccessMessage("User has been created successfully! Redirecting to home page...");
       setErrorMessage(""); 
 
