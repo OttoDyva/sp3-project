@@ -140,6 +140,7 @@ ul {
 }
 
 .pagination button {
+    all: unset; /* Resets all inherited styles */
     background-color: #444;
     color: white;
     border: none;
@@ -147,9 +148,11 @@ ul {
     font-size: 1rem;
     cursor: pointer;
     border-radius: 3px;
-    width: auto; /* Avoid dynamic width */
-    
-    flex-shrink: 0;
+    display: inline-flex; /* Ensures button layout consistency */
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 30px;
 }
 
 .pagination button:hover {
@@ -162,6 +165,7 @@ ul {
     color: #E5D588;
     cursor: not-allowed;
 }
+
 
 .pagination span {
     font-size: 1rem;

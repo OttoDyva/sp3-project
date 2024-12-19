@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // Assets
-import logotwo from "../assets/logotwo.png";
+import logo from "../assets/logo1.png";
 import videoloop3 from "../assets/videoloop3.mp4";
 
 // Components
@@ -75,7 +75,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="version">
-        <h4>Version: v.1.20.4</h4>
+        <h4>Version: v.1.20.5</h4>
       </div>
       <video autoPlay loop muted playsInline className="navbar-video">
         <source src={videoloop3} type="video/mp4" />
@@ -83,7 +83,7 @@ const Navbar = () => {
       </video>
       <div className="navbar-left">
         <Link to="/" className="logo">
-          <img src={logotwo} className="logo react" alt="React logo" />
+          <img src={logo} className="logo react" alt="React logo" />
         </Link>
         <Header />
       </div>

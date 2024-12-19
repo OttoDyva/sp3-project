@@ -282,13 +282,13 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
         <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
           &lt; Prev
         </button>
+        <span>Page {currentPage} of {totalPages}</span>
         <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>
           Next &gt;
         </button>
         <button onClick={goToLastPage} disabled={currentPage === totalPages}>
           Last &gt;&gt;
         </button>
-        <span>Page {currentPage} of {totalPages}</span>
       </div>
     </div>
   );
