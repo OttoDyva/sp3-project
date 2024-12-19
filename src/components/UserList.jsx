@@ -39,7 +39,6 @@ const UserList = () => {
         editFormData
       );
 
-      // Update the user list immediately
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
           user.username === username ? { ...user, ...editFormData } : user
@@ -57,7 +56,7 @@ const UserList = () => {
     setEditFormData({
       roles: user.roles.join(","),
       password: "",
-    }); 
+    });
   };
 
   const handleInputChange = (e) => {
@@ -85,7 +84,7 @@ const UserList = () => {
             <p>Roles: {user.roles.join(", ")}</p>
 
             {editingUser === user.username ? (
-              <div>
+              <div className="useredit">
                 <div>
                   <label htmlFor={`roles-${user.username}`}>
                     Roles (comma-separated):
@@ -100,17 +99,19 @@ const UserList = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor={`password-${user.username}`}>Password:</label>
+                  <label htmlFor={`password-${user.username}`}>
+                    Password:
+                  </label>
                   <input
                     id={`password-${user.username}`}
                     type="password"
                     name="password"
                     value={editFormData.password || ""}
                     onChange={handleInputChange}
-                    placeholder="Leave empty for no change. "
+                    placeholder="Leave empty for no change."
                   />
                 </div>
-                <div>
+                <div className="button-group">
                   <button onClick={() => editUserByUsername(user.username)}>
                     Save
                   </button>
@@ -118,7 +119,7 @@ const UserList = () => {
                 </div>
               </div>
             ) : (
-              <div>
+              <div className="button-group">
                 <button onClick={() => deleteUserByUsername(user.username)}>
                   Delete
                 </button>

@@ -123,6 +123,51 @@ ul {
     margin: 0px 0;
 }
 
+.pagination {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(22, 22, 22, 0.8);
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    height: 50px; /* Add consistent height */
+}
+
+.pagination button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 3px;
+    width: auto; /* Avoid dynamic width */
+    
+    flex-shrink: 0;
+}
+
+.pagination button:hover {
+    background-color: #E5D588;
+    color: black;
+}
+
+.pagination button:disabled {
+    background-color: #000000;
+    color: #E5D588;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 1rem;
+    color: white;
+}
+
 /* For small screens (mobile), adjust flex properties */
 @media screen and (max-width: 768px) {
 
@@ -160,6 +205,21 @@ ul {
       right: auto;
       margin-top: 10px; /* Give them space */
     }
+
+    .pagination {
+        flex-wrap: wrap; /* Allow buttons to wrap to the next line */
+        gap: 5px; /* Reduce gap between elements */
+        padding: 8px 10px; /* Smaller padding */
+    }
+
+    .pagination button {
+        padding: 6px 10px; /* Smaller buttons */
+        font-size: 0.9rem; /* Adjust font size */
+    }
+
+    .pagination span {
+        font-size: 0.9rem; /* Adjust text size */
+    }
   }
 
   @media screen and (max-width: 480px) {
@@ -172,5 +232,27 @@ ul {
     .searchgenre {
       flex-direction: column; /* Stack elements vertically */
       gap: 0.5em;
+    }
+
+    .pagination {
+        bottom: 10px;
+        width: 90%;
+        left: 3%;
+        transform: none;
+        justify-content: space-between; /* Distribute buttons evenly */
+    }
+
+    .pagination button {
+        flex: 1; /* Make all buttons the same size */
+        padding: 6px 10px; /* Adjust padding for smaller screens */
+        font-size: 0.9rem; /* Slightly smaller font size */
+        width: auto; /* Avoid fixed widths */
+        
+    }
+
+    .pagination span {
+        display: block;
+        text-align: center;
+        margin-top: 5px;
     }
   }
