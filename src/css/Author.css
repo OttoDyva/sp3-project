@@ -76,6 +76,63 @@
   font-weight: lighter;
 }
 
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-form label {
+  color: white;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.edit-form input,
+.edit-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #666;
+  border-radius: 3px;
+  background-color: #333;
+  color: white;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.edit-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.edit-form input:focus,
+.edit-form textarea:focus {
+  border-color: #E5D588;
+  outline: none;
+}
+
+.edit-form .action-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.edit-form .action-buttons button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background-color: #444;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.edit-form .action-buttons button:hover {
+  background-color: #E5D588;
+  color: black;
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   /* On mobile screens, display only 1 column */
