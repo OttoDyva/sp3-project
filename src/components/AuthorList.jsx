@@ -92,7 +92,10 @@ const AuthorList = () => {
   // Paginate the filtered authors
   const indexOfLastAuthor = currentPage * authorsPerPage;
   const indexOfFirstAuthor = indexOfLastAuthor - authorsPerPage;
-  const currentAuthors = filteredAuthors.slice(indexOfFirstAuthor, indexOfLastAuthor);
+  const currentAuthors = filteredAuthors.slice(
+    indexOfFirstAuthor,
+    indexOfLastAuthor
+  );
 
   const totalPages = Math.ceil(filteredAuthors.length / authorsPerPage);
 
@@ -124,7 +127,7 @@ const AuthorList = () => {
           <div key={author.id} className="author-card">
             {editingAuthor === author.id ? (
               // Edit form
-              <div>
+              <div className="edit-form">
                 <label>Name:</label>
                 <input
                   type="text"
@@ -179,16 +182,24 @@ const AuthorList = () => {
         <button onClick={goToFirstPage} disabled={currentPage === 1}>
           &lt;&lt; First
         </button>
-        <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
           &lt; Prev
         </button>
-        <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === totalPages}>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
           Next &gt;
         </button>
         <button onClick={goToLastPage} disabled={currentPage === totalPages}>
           Last &gt;&gt;
         </button>
-        <span>Page {currentPage} of {totalPages}</span>
       </div>
     </div>
   );
