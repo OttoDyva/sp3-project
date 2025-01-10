@@ -12,7 +12,7 @@ import SearchBar from "./SearchBar";
 import "../css/BarsListStyle.css";
 
 const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
-  const [bars, setBars] = useState([]);
+  const [bars, setBars] = useState([]); // Initialization, empty array. Continues at line: 31
   const [searchResults, setSearchResults] = useState([]);
   const [filteredBars, setFilteredBars] = useState([]);
   const [editingBar, setEditingBar] = useState(null);
@@ -28,7 +28,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
 
     const fetchBarsAndGenres = async () => {
       try {
-        const bars = await facade.fetchData("/api/bars");
+        const bars = await facade.fetchData("/api/bars"); // Fetching data, filling the array. Continues at line: 85
         const authors = await facade.fetchData("/api/authors");
 
         const barsWithAuthors = bars.map((bar) => {
@@ -82,7 +82,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
   const deleteBarById = async (barId) => {
     try {
       await facade.deleteData(`/api/bars/${barId}`);
-      setBars(bars.filter((bar) => bar.id !== barId));
+      setBars(bars.filter((bar) => bar.id !== barId)); // Filter out the deleted bar, update the state. When deleting the site immediately re-renders. Continues at line: 97
     } catch (error) {
       console.error("Error deleting bar:", error);
     }
@@ -94,7 +94,7 @@ const BarsList = ({ onSelectBar, selectedGenre, onSelectGenre }) => {
         `/api/bars/${barId}`,
         editFormData
       );
-      setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar)));
+      setBars(bars.map((bar) => (bar.id === barId ? editedBar : bar))); // Same as for deleting, but with editing.
       setEditingBar(null);
 
       const authors = await facade.fetchData("/api/authors");

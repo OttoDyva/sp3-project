@@ -45,8 +45,8 @@ function App() {
           <Route
             path="/UserList"
             element={
-              <ProtectedRoute role="admin">
-                <UserList users={users} />
+              <ProtectedRoute role="admin"> {/* Prop: role="admin" */}
+                <UserList users={users} /> {/* Child: userlist */}
               </ProtectedRoute>
             }
           />
